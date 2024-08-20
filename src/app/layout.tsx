@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { Metadata } from 'next';
 import './globals.css';
+import GraphAnimation from './components/GraphAnimation';
 
 export const metadata: Metadata = {
   title: 'GraphiQL App',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <GraphAnimation/>
+        {children}
+      </body>
     </html>
   );
 }
