@@ -1,9 +1,9 @@
 .page {
-    min-height: calc(100vh - 160px);
-    padding: 10px;
-    max-width: 1440px;
-    width: 100%;
-    margin: auto;
-    border-left: 1px white solid;
-    border-right: 1px white solid;
+  min-height: calc(100vh - 160px);
+  padding: 10px;
+  max-width: 1440px;
+  width: 100%;
+  margin: auto;
+  border-left: 1px white solid;
+  border-right: 1px white solid;
 }
