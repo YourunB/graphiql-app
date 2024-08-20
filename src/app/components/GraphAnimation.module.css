@@ -1,0 +1,25 @@
+.graph-box {
+  position: fixed;
+  z-index: -1;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.graph-box__image {
+  width: 250px;
+  height: 250px;
+  animation: rotate-graph 10s linear infinite;
+}
+
+@keyframes rotate-graph {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
