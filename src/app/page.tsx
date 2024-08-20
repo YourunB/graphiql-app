@@ -1,9 +1,9 @@
-import { metadata } from "./modules/metadata";
+import { metadata } from './layout';
+
+metadata.title = 'Home page';
+metadata.description = 'Home page GraphiQl App';
 
 export default function Home() {
-  metadata.title = 'GraphiQL App';
-  metadata.description = 'GraphiQl app home page';
-
   return (
     <main>
       Home page...
