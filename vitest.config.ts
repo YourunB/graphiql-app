@@ -9,13 +9,8 @@ export default defineConfig({
     css: true,
     globals: true,
     coverage: {
-      include: [
-        'src/**/*.ts',
-        'src/**/*.tsx'
-      ],
-      exclude: [
-        'src/app/state/**'
-      ],
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      exclude: ['src/app/state/**'],
     },
   },
 });

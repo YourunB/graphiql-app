@@ -5,13 +5,21 @@ import '@testing-library/jest-dom';
 
 describe('RootLayout', () => {
   test('renders the Header component', () => {
-    render(<RootLayout><div /></RootLayout>);
+    render(
+      <RootLayout>
+        <div />
+      </RootLayout>
+    );
     expect(screen.getByText('Header...')).toBeInTheDocument();
     expect(screen.getByText('Footer...')).toBeInTheDocument();
   });
 
   test('renders children components', () => {
-    render(<RootLayout><div data-testid="child" /></RootLayout>);
+    render(
+      <RootLayout>
+        <div data-testid="child" />
+      </RootLayout>
+    );
     expect(screen.getByTestId('child')).toBeInTheDocument();
   });
 
