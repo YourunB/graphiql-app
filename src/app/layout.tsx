@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import GraphAnimation from './components/GraphAnimation';
+import Footer from './components/Footer';
 
 export const metadata: Metadata = {
   title: 'GraphiQL App',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <GraphAnimation/>
         {children}
+        <Footer />
       </body>
     </html>
   );
