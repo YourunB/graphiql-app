@@ -15,7 +15,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx eslint **/*.tsx"
+      "pre-commit": "npx eslint **/*.tsx",
+      "pre-push": "npx vitest --run"
     }
   },
   "dependencies": {
