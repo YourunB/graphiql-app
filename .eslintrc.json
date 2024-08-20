@@ -17,6 +17,14 @@
     "@typescript-eslint/no-explicit-any": "error",
     "react-compiler/react-compiler": "error"
   },
+  "overrides": [
+    {
+      "files": ["src/app/page.tsx", "src/app/**/page.tsx", "src/app/not-found.tsx", "src/app/layout.tsx"],
+      "rules": {
+        "react-refresh/only-export-components": "off"
+      }
+    }
+  ],
   "settings": {
     "react": {
       "version": "detect"

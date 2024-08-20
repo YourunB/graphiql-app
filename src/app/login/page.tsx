@@ -1,8 +1,10 @@
 import s from './page.module.css';
-import { metadata } from '../layout';
+import { Metadata } from 'next';
 
-metadata.title = 'Login page';
-metadata.description = 'Login page GraphiQl App';
+export const metadata: Metadata = {
+  title: 'Login page',
+  description: 'Login page GraphiQl App',
+};
 
 export default function PageLogin() {
   return (
