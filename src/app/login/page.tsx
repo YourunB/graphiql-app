@@ -4,7 +4,7 @@ import { metadata } from '../layout';
 metadata.title = 'Login page';
 metadata.description = 'Login page GraphiQl App';
 
-export default function Home() {
+export default function PageLogin() {
   return (
     <main className={s.page}>
       Login page...
