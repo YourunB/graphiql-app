@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '@/app/utils/validation';
 import Link from 'next/link';
 import { registerWithEmailAndPassword } from '@/firebase';
-import { RegisterData } from '@/app/types';
+import { RegisterData } from '@/app/type';
 
 export default function RegisterForm() {
   const {
