@@ -1,4 +1,4 @@
-.page {
+.login {
   min-height: calc(100vh - 160px);
   padding: 10px;
   max-width: 1440px;
@@ -6,4 +6,7 @@
   margin: auto;
   border-left: 1px white solid;
   border-right: 1px white solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
