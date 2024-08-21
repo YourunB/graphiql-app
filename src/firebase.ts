@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { LoginData, RegisterData } from './app/types';
+import { LoginData, RegisterData } from './app/type';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAsWKYLAMEyk2EHfvRxQ9Oft0Si_yNBHYo',
