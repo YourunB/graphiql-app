@@ -34,11 +34,11 @@ export default function LoginForm() {
               Email:
             </label>
             <input
+              {...register('email')}
               type="text"
               className={s['login__input']}
               placeholder="E-mail Address"
               id="email"
-              {...register('email')}
             />
           </div>
           {errors.email && <div className={s.error}>{errors.email.message}</div>}
@@ -49,11 +49,11 @@ export default function LoginForm() {
               Password:
             </label>
             <input
+              {...register('password')}
               type="password"
               className={s['login__input']}
               placeholder="Password"
               id="password"
-              {...register('password')}
             />
           </div>
           {errors.password && <div className={s.error}>{errors.password.message}</div>}

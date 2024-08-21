@@ -33,7 +33,7 @@ export default function RegisterForm() {
             <label htmlFor="name" className={s['register__label']}>
               Name:
             </label>
-            <input type="text" className={s['register__input']} placeholder="Name" id="name" {...register('name')} />
+            <input {...register('name')} type="text" className={s['register__input']} placeholder="Name" id="name" />
           </div>
           {errors.name && <div className={s.error}>{errors.name.message}</div>}
         </div>
@@ -43,11 +43,11 @@ export default function RegisterForm() {
               Email:
             </label>
             <input
+              {...register('email')}
               type="text"
               className={s['register__input']}
               placeholder="E-mail Address"
               id="email"
-              {...register('email')}
             />
           </div>
           {errors.email && <div className={s.error}>{errors.email.message}</div>}
@@ -58,11 +58,11 @@ export default function RegisterForm() {
               Password:
             </label>
             <input
+              {...register('password')}
               type="password"
               className={s['register__input']}
               placeholder="Password"
               id="password"
-              {...register('password')}
             />
           </div>
           {errors.password && <div className={s.error}>{errors.password.message}</div>}
@@ -73,11 +73,11 @@ export default function RegisterForm() {
               Confirm password:
             </label>
             <input
+              {...register('confirmPassword')}
               type="password"
               className={s['register__input']}
               placeholder="Confirm password"
               id="confirmPassword"
-              {...register('confirmPassword')}
             />
           </div>
           {errors.confirmPassword && <div className={s.error}>{errors.confirmPassword.message}</div>}

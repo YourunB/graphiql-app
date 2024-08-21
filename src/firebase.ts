@@ -10,12 +10,12 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { LoginData, RegisterData } from './app/type';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAsWKYLAMEyk2EHfvRxQ9Oft0Si_yNBHYo',
-  authDomain: 'graphiql-app-3d55f.firebaseapp.com',
-  projectId: 'graphiql-app-3d55f',
-  storageBucket: 'graphiql-app-3d55f.appspot.com',
-  messagingSenderId: '804299002995',
-  appId: '1:804299002995:web:6df6a697e48b9319e0c606',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
