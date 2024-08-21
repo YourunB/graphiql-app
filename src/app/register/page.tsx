@@ -1,23 +1,22 @@
 'use client';
 import s from './page.module.css';
-
 import { auth } from '@/firebase';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import LoginForm from '../components/forms/LoginForm';
+import RegisterForm from '../components/forms/RegisterForm';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
-
+ 
   useEffect(() => {
     if (user) router.push('/');
-  }, [loading, router, user]);
+  }, [router, user]);
 
   return (
-    <main className={s.login} data-testid="child">
-      {!loading && !user && <LoginForm/>}
+    <main className={s.register} data-testid="child">
+      {!loading && !user && <RegisterForm/>}
     </main>
   );
 }
