@@ -14,7 +14,7 @@ const authors: Author[] = [
     github: 'https://github.com/YourunB',
   },
   {
-    name: 'Liza Basarab',
+    name: 'Lizaveta Basarab',
     github: 'https://github.com/Lilo002',
   },
   {
@@ -43,7 +43,9 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()}</p>
         </div>
         <div className={styles.logoSection}>
-          <Image src={RSLogo} alt={'RS Logo'} height={45} className={styles.rsLogo} />
+          <a href="https://rs.school/courses/reactjs" title="RS School React Course">
+            <Image src={RSLogo} alt={'RS Logo'} height={45} className={styles.rsLogo} />
+          </a>
         </div>
       </div>
     </footer>
