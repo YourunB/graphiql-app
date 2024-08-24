@@ -234,4 +234,5 @@
 .userNameDesktop {
   text-decoration: underline;
   margin-right: 1rem;
+  text-shadow: 1px 1px 5px #000;
 }
