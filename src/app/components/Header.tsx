@@ -9,6 +9,9 @@ import flagUS from '../../../public/icons/flag-us.png';
 import flagRU from '../../../public/icons/flag-ru.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 type Language = 'en' | 'ru';
 
@@ -29,7 +32,8 @@ const Header = () => {
 
   const currentLanguage = i18n.language as Language;
 
-  const token = false;
+  // as token
+  const [user] = useAuthState(auth);
 
   const handleLanguageChange = useCallback(
     (lang: Language) => {
@@ -90,7 +94,14 @@ const Header = () => {
     router.push(href);
   };
 
-  const onLogout = () => {};
+  const onLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/');
+    } catch (error) {
+      console.error('Logout failed: ', error);
+    }
+  };
 
   const currentLangOption = languageOptions.find((option) => option.code === currentLanguage);
 
@@ -113,7 +124,7 @@ const Header = () => {
               <>
                 <div className={styles.backdrop} onClick={toggleDrawer}></div>
                 <div className={styles.drawer}>
-                  {!token ? (
+                  {!user ? (
                     <>
                       <button onClick={() => handleLinkClick('/login')} className={styles.link}>
                         {t('login')}
@@ -154,7 +165,7 @@ const Header = () => {
           </>
         ) : (
           <div className={styles.navSection}>
-            {!token ? (
+            {!user ? (
               <>
                 <Link href="/login" className={styles.button}>
                   {t('login')}
