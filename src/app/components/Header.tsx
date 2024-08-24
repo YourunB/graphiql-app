@@ -44,7 +44,6 @@ const Header = () => {
         const currentPath = window.location.pathname.replace(/^\/(en|ru)/, '');
         router.push(`/${lang}${currentPath}`);
       }
-      setLanguageMenuOpen(false);
     },
     [router, currentLanguage]
   );
