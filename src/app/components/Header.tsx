@@ -98,7 +98,7 @@ const Header = () => {
     <header className={styles.header} style={{ background }}>
       <div className={styles.toolbar}>
         <div className={styles.logoSection}>
-          <Link href={`/${currentLanguage}`} className={styles.homeLink}>
+          <Link href="/" className={styles.homeLink}>
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
             {t('home')}
           </Link>
