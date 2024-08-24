@@ -3,34 +3,39 @@ import { useTranslation } from 'react-i18next';
 import styles from './Footer.module.css';
 import Image from 'next/image';
 import RSLogo from '../../../public/icons/rs-logo.png';
-
-type Author = {
-  name: string;
-  github: string;
-};
+import { Author } from '@/app/type';
 
 const Footer = () => {
   const { t } = useTranslation();
 
   const authors: Author[] = [
     {
-      name: t('authorNames.yury'),
-      github: 'https://github.com/YourunB',
-    },
-    {
-      name: t('authorNames.lizaveta'),
+      name: t('authors.liza.name'),
       github: 'https://github.com/Lilo002',
+      description: t('authors.liza.description'),
+      image: '/images/liza.png',
+      location: t('authors.liza.location'),
     },
     {
-      name: t('authorNames.valeryia'),
+      name: t('authors.yury.name'),
+      github: 'https://github.com/YourunB',
+      description: t('authors.yury.description'),
+      image: '/images/yury.jpg',
+      location: t('authors.yury.location'),
+    },
+    {
+      name: t('authors.valery.name'),
       github: 'https://github.com/valeryaosta',
+      description: t('authors.valery.description'),
+      image: '/images/valery.jpg',
+      location: t('authors.valery.location'),
     },
   ];
 
   return (
     <footer className={styles.footer}>
       <div className={styles.authorsSection}>
-        <p className={styles.authorsTitle}>{t('authors')}:</p>
+        <p className={styles.authorsTitle}>{t('authors.title')}:</p>
         <div className={styles.authorsList}>
           {authors.map((author) => (
             <p key={author.name} className={styles.authorItem}>

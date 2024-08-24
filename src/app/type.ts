@@ -9,3 +9,11 @@ export type RegisterData = {
   password: string;
   confirmPassword: string;
 };
+
+export type Author = {
+  name: string;
+  github: string;
+  description: string;
+  image: string;
+  location: string;
+};

@@ -1,13 +1,7 @@
 'use client';
 import s from './not-found.module.css';
 import Link from 'next/link';
-// import { Metadata } from 'next';
 import { useTranslation } from 'react-i18next';
-
-// export const metadata: Metadata = {
-//   title: '404',
-//   description: 'Not Found Page',
-// };
 
 export default function PageNotFound() {
   const { t } = useTranslation();
