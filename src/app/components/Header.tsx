@@ -32,7 +32,7 @@ const Header = () => {
 
   const currentLanguage = i18n.language as Language;
 
-  // as token
+  // user credentials as token
   const [user] = useAuthState(auth);
 
   const handleLanguageChange = useCallback(
@@ -87,6 +87,27 @@ const Header = () => {
       document.body.style.overflow = 'auto';
     };
   }, [drawerOpen]);
+
+  useEffect(() => {
+    const checkTokenExpiration = async () => {
+      if (user) {
+        const tokenResult = await user.getIdTokenResult();
+        const expirationTime = new Date(tokenResult.expirationTime).getTime();
+        const now = new Date().getTime();
+
+        if (expirationTime <= now) {
+          await signOut(auth);
+          router.push('/');
+        }
+      }
+    };
+
+    // check token immediately and then every 5 minutes
+    checkTokenExpiration();
+    const intervalId = setInterval(checkTokenExpiration, 300000); // 5 minutes
+
+    return () => clearInterval(intervalId);
+  }, [user, router]);
 
   const handleLinkClick = (href: string) => {
     setDrawerOpen(false);
