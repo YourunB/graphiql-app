@@ -103,7 +103,7 @@
 .languageOption {
   padding: 0.5rem 1rem;
   border: none;
-  background: none;
+  /*background: none;*/
   text-align: left;
   cursor: pointer;
   display: flex;
@@ -204,10 +204,16 @@
 .logoutDesktop {
   background-color: #493847;
   color: #f0f0f0;
-  padding: 0.7rem 1rem;
-  border-radius: 6px;
   border: none;
   margin-right: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: 'Comic Sans MS', sans-serif;
+  text-transform: uppercase;
 }
 
 .logout:hover,
@@ -218,5 +224,14 @@
 }
 
 .drawer .logout {
-  order: 1;
+  order: 3;
+}
+.userName {
+  text-decoration: underline;
+  order: 2;
+  margin-top: 2rem;
+}
+.userNameDesktop {
+  text-decoration: underline;
+  margin-right: 1rem;
 }

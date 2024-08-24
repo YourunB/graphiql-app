@@ -134,9 +134,12 @@ const Header = () => {
                       </button>
                     </>
                   ) : (
-                    <button onClick={onLogout} className={styles.logout}>
-                      {t('logout')}
-                    </button>
+                    <>
+                      <span className={styles.userName}>{user.email || user.displayName || 'User'}</span>
+                      <button onClick={onLogout} className={styles.logout}>
+                        {t('logout')}
+                      </button>
+                    </>
                   )}
                   <div className={styles.languageSwitcher}>
                     {languageOptions.map((option) => (
@@ -175,9 +178,12 @@ const Header = () => {
                 </Link>
               </>
             ) : (
-              <button onClick={onLogout} className={styles.logoutDesktop}>
-                {t('logout')}
-              </button>
+              <>
+                <span className={styles.userNameDesktop}>{user.email || user.displayName || 'User'}</span>
+                <button onClick={onLogout} className={styles.logoutDesktop}>
+                  {t('logout')}
+                </button>
+              </>
             )}
             <div className={styles.languageDropdown}>
               <button className={styles.languageButton} onClick={toggleLanguageMenu}>
