@@ -1,0 +1,35 @@
+{
+  "home": "Главная",
+  "welcome": "Добро пожаловать в наше приложение",
+  "login": "Войти",
+  "register": "Зарегистрироваться",
+  "logout": "Выйти",
+  "authors": "Авторы",
+  "authorNames": {
+    "yury": "Юрий Буцкевич",
+    "lizaveta": "Елизавета Басараб",
+    "valeryia": "Валерия Герасименко"
+  },
+  "notFound": "Эта страница не найдена",
+  "fields": {
+    "email": {
+      "name": "И-мэил",
+      "placeholder": "Почтовый адрес"
+    },
+    "name": {
+      "name": "Имя",
+      "placeholder": "Имя"
+    },
+    "password": {
+      "name": "Пароль",
+      "placeholder": "Введите пароль"
+    },
+    "confirmPassword": {
+      "name": "Подтвердите пароль",
+      "placeholder": "Подтвердите пароль"
+    }
+  },
+  "doNotHaveAccount": "Нет аккаунта",
+  "alreadyHaveAccount": "Уже нсть аккаунт",
+  "now": " сейчас"
+}

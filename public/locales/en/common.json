@@ -1,0 +1,35 @@
+{
+  "home": "Main",
+  "welcome": "Welcome to our application",
+  "login": "Log in",
+  "register": "Register",
+  "logout": "Log out",
+  "authors": "Authors",
+  "authorNames": {
+    "yury": "Yury Butskevich",
+    "lizaveta": "Lizaveta Basarab",
+    "valeryia": "Valeryia Herasimenka"
+  },
+  "notFoundPage": "This Page Not Found",
+  "fields": {
+    "email": {
+      "name": "Email",
+      "placeholder": "E-mail Address"
+    },
+    "name": {
+      "name": "Name",
+      "placeholder": "Name"
+    },
+    "password": {
+      "name": "Password",
+      "placeholder": "Password"
+    },
+    "confirmPassword": {
+      "name": "Confirm Password",
+      "placeholder": "Confirm Password"
+    }
+  },
+  "doNotHaveAccount": "Don`t have an account",
+  "alreadyHaveAccount": "Already have an account",
+  "now": " now"
+}

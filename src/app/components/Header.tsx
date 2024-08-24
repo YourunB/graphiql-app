@@ -1,12 +1,14 @@
 'use client';
 import styles from './Header.module.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image, { StaticImageData } from 'next/image';
 import GraphQL from '../../../public/icons/logo-graphql.png';
 import flagUS from '../../../public/icons/flag-us.png';
 import flagRU from '../../../public/icons/flag-ru.png';
+import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 
 type Language = 'en' | 'ru';
 
@@ -16,25 +18,36 @@ const languageOptions: { code: Language; label: string; flag: StaticImageData }[
 ];
 
 const Header = () => {
+  const { t } = useTranslation();
+
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<Language>('en');
   const [background, setBackground] = useState('transparent');
 
   const router = useRouter();
 
-  // hardcoded
+  const currentLanguage = i18n.language as Language;
+
   const token = false;
+
+  const handleLanguageChange = useCallback(
+    (lang: Language) => {
+      if (lang !== currentLanguage) {
+        i18n.changeLanguage(lang);
+        localStorage.setItem('appLanguage', lang);
+
+        const currentPath = window.location.pathname.replace(/^\/(en|ru)/, '');
+        router.push(`/${lang}${currentPath}`);
+      }
+      setLanguageMenuOpen(false);
+    },
+    [router, currentLanguage]
+  );
 
   const handleResize = () => setIsMobile(window.innerWidth <= 768);
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
   const toggleLanguageMenu = () => setLanguageMenuOpen(!languageMenuOpen);
-
-  const handleLanguageChange = (lang: Language) => {
-    setLanguage(lang);
-    setLanguageMenuOpen(false);
-  };
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -44,15 +57,12 @@ const Header = () => {
     }
   };
 
-  const handleLinkClick = (href: string) => {
-    setDrawerOpen(false);
-    router.push(href);
-  };
-
-  const onLogout = () => {
-    // remove token, redirect to main page
-    // router.push('/');
-  };
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('appLanguage') as Language;
+    if (savedLanguage && savedLanguage !== currentLanguage) {
+      handleLanguageChange(savedLanguage);
+    }
+  }, [handleLanguageChange, currentLanguage]);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
@@ -75,15 +85,22 @@ const Header = () => {
     };
   }, [drawerOpen]);
 
-  const currentLanguage = languageOptions.find((option) => option.code === language);
+  const handleLinkClick = (href: string) => {
+    setDrawerOpen(false);
+    router.push(href);
+  };
+
+  const onLogout = () => {};
+
+  const currentLangOption = languageOptions.find((option) => option.code === currentLanguage);
 
   return (
     <header className={styles.header} style={{ background }}>
       <div className={styles.toolbar}>
         <div className={styles.logoSection}>
-          <Link href="/" className={styles.homeLink}>
+          <Link href={`/${currentLanguage}`} className={styles.homeLink}>
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
-            Home
+            {t('home')}
           </Link>
         </div>
 
@@ -99,15 +116,15 @@ const Header = () => {
                   {!token ? (
                     <>
                       <button onClick={() => handleLinkClick('/login')} className={styles.link}>
-                        Sign in
+                        {t('login')}
                       </button>
                       <button onClick={() => handleLinkClick('/register')} className={styles.link}>
-                        Register
+                        {t('register')}
                       </button>
                     </>
                   ) : (
                     <button onClick={onLogout} className={styles.logout}>
-                      Log Out
+                      {t('logout')}
                     </button>
                   )}
                   <div className={styles.languageSwitcher}>
@@ -116,8 +133,9 @@ const Header = () => {
                         key={option.code}
                         onClick={() => handleLanguageChange(option.code)}
                         className={`${styles.languageOption} ${
-                          option.code === language ? styles.selectedLanguage : ''
+                          option.code === currentLanguage ? styles.selectedLanguage : ''
                         }`}
+                        disabled={option.code === currentLanguage}
                       >
                         <Image
                           src={option.flag}
@@ -139,29 +157,29 @@ const Header = () => {
             {!token ? (
               <>
                 <Link href="/login" className={styles.button}>
-                  Sign in
+                  {t('login')}
                 </Link>
                 <Link href="/register" className={styles.button}>
-                  Register
+                  {t('register')}
                 </Link>
               </>
             ) : (
               <button onClick={onLogout} className={styles.logoutDesktop}>
-                Log Out
+                {t('logout')}
               </button>
             )}
             <div className={styles.languageDropdown}>
               <button className={styles.languageButton} onClick={toggleLanguageMenu}>
-                {currentLanguage && (
+                {currentLangOption && (
                   <Image
-                    src={currentLanguage.flag}
-                    alt={currentLanguage.label}
+                    src={currentLangOption.flag}
+                    alt={currentLangOption.label}
                     className={styles.flagIcon}
                     width={20}
                     height={20}
                   />
                 )}
-                {currentLanguage?.label}
+                {currentLangOption?.label}
               </button>
               {languageMenuOpen && (
                 <div className={styles.languageMenu}>
@@ -169,7 +187,8 @@ const Header = () => {
                     <button
                       key={option.code}
                       onClick={() => handleLanguageChange(option.code)}
-                      className={styles.languageOption}
+                      className={`${styles.languageOption} ${option.code === currentLanguage ? styles.selectedLanguage : ''}`}
+                      disabled={option.code === currentLanguage}
                     >
                       <Image src={option.flag} alt={option.label} className={styles.flagIcon} width={20} height={20} />
                       {option.label}

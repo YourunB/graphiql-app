@@ -143,6 +143,15 @@
   color: white;
 }
 
+.selectedLanguage:disabled {
+  cursor: not-allowed;
+  background-color: #4d454c;
+}
+.selectedLanguage:disabled:hover {
+  cursor: not-allowed;
+  color: white;
+}
+
 .drawer {
   position: absolute;
   top: 0;
