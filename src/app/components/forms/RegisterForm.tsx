@@ -85,11 +85,11 @@ export default function RegisterForm() {
 
         <div className={s['register__btns']}>
           <button disabled={!isValid} className={s['register__btn']} type="submit">
-            Register
+            Sign Up
           </button>
         </div>
         <div className={s['register__link']}>
-          Already have an account? <Link href="/login">Login</Link> now.
+          Already have an account? <Link href="/login">Sign In</Link> now.
         </div>
       </form>
   )

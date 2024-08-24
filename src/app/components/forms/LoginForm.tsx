@@ -61,11 +61,11 @@ export default function LoginForm() {
 
         <div className={s['login__btns']}>
           <button disabled={!isValid} className={s['login__btn']} type="submit">
-            Login
+            Sign In
           </button>
         </div>
         <div className={s['login__link']}>
-          Don&apos;t have an account? <Link href="/register">Register</Link> now.
+          Don&apos;t have an account? <Link href="/register">Sign Up</Link> now.
         </div>
       </form>
   )
