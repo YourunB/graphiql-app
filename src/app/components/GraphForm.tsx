@@ -9,7 +9,7 @@ import { githubDark } from '@uiw/codemirror-theme-github'
 export default function GraphForm() {
   const [value, setValue] = React.useState("console.log('hello world!');");
   const onChange = React.useCallback((val, viewUpdate) => {
-    console.log('val:', val);
+    console.log(viewUpdate);
     setValue(val);
   }, []);
 
