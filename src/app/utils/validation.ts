@@ -8,16 +8,16 @@ export const loginSchema = Yup.object({
 });
 
 export const registerSchema = Yup.object({
-  name: Yup.string()
-    .required('Name is required'),
+  name: Yup.string().required('Name is required'),
   email: Yup.string().matches(emailRegex, 'Invalid email address').required('Email is required'),
   password: Yup.string()
     .required('Password is required')
     .matches(
       /^(?=.*[\p{Ll}\p{Lu}])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>/?]).+$/u,
       'Password must contain at least 1 letter, 1 number, and 1 special character'
-    ).min(8, 'Password must be at least 8 characters long'),
+    )
+    .min(8, 'Password must be at least 8 characters long'),
   confirmPassword: Yup.string()
     .required('Please confirm your password')
-    .oneOf([Yup.ref('password')], 'Passwords must match')
+    .oneOf([Yup.ref('password')], 'Passwords must match'),
 });

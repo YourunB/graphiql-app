@@ -8,8 +8,8 @@
   max-width: 1440px;
   width: 100%;
   margin: auto;
-  border-left: 1px white solid;
-  border-right: 1px white solid;
+  border-left: 1px solid rgba(236, 230, 230, 0.12);
+  border-right: 1px solid rgba(236, 230, 230, 0.12);
 }
 
 .error-box {

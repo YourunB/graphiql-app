@@ -22,11 +22,16 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "firebase": "^10.13.0",
+    "i18next": "^23.14.0",
+    "i18next-resources-to-backend": "^1.2.1",
+    "idb": "^8.0.0",
     "next": "14.2.5",
+    "next-i18n-router": "^5.5.1",
     "react": "^18",
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.52.2",
+    "react-i18next": "^15.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -42,7 +47,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-9ed098e-20240725",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-8e3b87c-20240821",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.9",
     "husky": "^9.1.4",
