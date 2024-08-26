@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Welcome',
-  description: 'Home page GraphiQl App',
+  description: 'Welcome page',
 };
 
 export default function PageHome() {
