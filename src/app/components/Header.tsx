@@ -135,12 +135,11 @@ const Header = () => {
           </Link>
           {user ?
             <>
-              <Link href="/graphiql" className={styles.homeLink}>{t('Graph')}</Link>
+              <Link href="/graph" className={styles.homeLink}>{t('Graph')}</Link>
               <Link href="/rest" className={styles.homeLink}>{t('Rest')}</Link>
             </>
           : null
           }
-
         </div>
 
         {isMobile ? (

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-export default function GraphiqlPage() {
+export default function GraphPage() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
 
