@@ -133,6 +133,8 @@ const Header = () => {
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
             {t('home')}
           </Link>
+          <Link href="/graphiql" className={styles.homeLink}>{t('Graph')}</Link>
+          <Link href="/rest" className={styles.homeLink}>{t('Rest')}</Link>
         </div>
 
         {isMobile ? (
