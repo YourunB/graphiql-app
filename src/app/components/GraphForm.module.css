@@ -79,4 +79,9 @@
   .form-right {
     width: 100%;
   }
+
+  .box {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
