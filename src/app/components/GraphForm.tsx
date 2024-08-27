@@ -62,7 +62,7 @@ export default function GraphForm() {
 
   return (
     <div className={s['graph-form']}>
-      <input defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/><button>fix</button><button>+</button><button onClick={() => getDataGraphApi(url, queryValue, variables, '')}>&#10003;</button>
+      <input defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/><button>fix</button><button>+</button><button onClick={() => getDataGraphApi(url, queryValue, variables, headers)}>&#10003;</button>
       <CodeMirror value={queryValue} height="600px" extensions={[javascript({ jsx: true })]} onChange={onChange} theme={githubDark} />;
     </div>
   );
