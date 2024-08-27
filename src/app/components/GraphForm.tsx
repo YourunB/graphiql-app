@@ -6,8 +6,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { githubDark } from '@uiw/codemirror-theme-github'
 import { useRef, useCallback, useState } from 'react';
-import * as prettier from 'prettier/standalone';
-import parserGraphql from "prettier/plugins/graphql";
+import { formatCode } from '../utils/formatCode';
 
 export default function GraphForm() {
   const inputRef = useRef(null);
@@ -90,26 +89,9 @@ export default function GraphForm() {
 
   checkAuth();
 
-  const formatCode = async (code: string) => {
-    try {
-      const prettierVersion = prettier.format(code, {
-        parser: "graphql",
-        plugins: [parserGraphql],
-        trailingComma: "es5",
-        tabWidth: 2,
-        semi: true,
-        singleQuote: true,
-        printWidth: 120
-      });
-      return prettierVersion;
-    } catch (error) {
-      console.error("Formatting error:", error);
-    }
-  };
-
   const format = async (code: string) => {
     if (code) {
-      const resultFormat = await formatCode(code);
+      const resultFormat = await formatCode(code, 'graphql');
       console.log(resultFormat);
     }
   }
