@@ -55,15 +55,6 @@ export default function GraphForm() {
     console.log(viewUpdate);
     setResultValue(val);
   }, []);
-
-  //const url = 'https://rickandmortyapi.com/graphql';
-  //const variables = {
-  //  page: 2,
-  //  name: "rick"
-  //};
-  //const headers = {
-  //  'Content-Type': 'application/json',
-  //};
   
   const toggleShowVariables = () => {
     setShowVariables(!showVariables);
@@ -89,18 +80,23 @@ export default function GraphForm() {
     }
   }
 
+  const formatAllAreas = () => {
+    format(queryValue, 'graphql', 'query');
+    format(variablesValue, 'json', 'variables');
+    format(headersValue, 'json', 'headers');
+  }
+
   const loadDataFromApi = async () => {
     const data = await getDataGraphApi(inputRef.current.value, queryValue, variablesValue, headersValue);
     const result = JSON.stringify(data);
-    console.log(result)
-    format(result, 'json', 'result')
+    format(result, 'json', 'result');
   }
 
   return (
     <div className={s['graph-form']}>
       <div className={s.top}>
         <input className={s['top__input']} defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/>
-        <button className={s['top__btn']} onClick={() => format(queryValue, 'graphql', 'query')}>fix</button>
+        <button className={s['top__btn']} onClick={() => formatAllAreas()}>fix</button>
         <button className={s['top__btn']}>+</button>
         <button className={s['top__btn']} onClick={() => loadDataFromApi()}>&#10003;</button>
       </div>
