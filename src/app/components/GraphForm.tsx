@@ -10,7 +10,7 @@ import { formatCode } from '../utils/formatCode';
 import { getDataGraphApi } from '../modules/api';
 
 export default function GraphForm() {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const resultCodeMirrorRef = useRef(null);
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);

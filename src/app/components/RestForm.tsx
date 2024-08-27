@@ -10,7 +10,7 @@ import { formatCode } from '../utils/formatCode';
 import { getDataRestApi } from '../modules/api';
 
 export default function RestForm() {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const resultCodeMirrorRef = useRef(null);
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
