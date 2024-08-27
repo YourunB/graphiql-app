@@ -96,9 +96,9 @@ export default function GraphForm() {
     <div className={s['graph-form']}>
       <div className={s.top}>
         <input className={s['top__input']} defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/>
-        <button className={s['top__btn']} onClick={() => formatAllAreas()}>fix</button>
-        <button className={s['top__btn']}>+</button>
-        <button className={s['top__btn']} onClick={() => loadDataFromApi()}>&#10003;</button>
+        <button className={s['top__btn']} title='Format Code' onClick={() => formatAllAreas()}>&#182;</button>
+        <button className={s['top__btn']} title='Submit Endpoint'>&#8226;</button>
+        <button className={s['top__btn']} title='Execute Query' onClick={() => loadDataFromApi()}>&#10003;</button>
       </div>
       
       <div className={s.box}>
