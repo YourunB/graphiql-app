@@ -62,7 +62,7 @@
   background: #da1cc1;
 }
 
-@media (hover:hover) {
+@media (hover: hover) {
   .btn-toggle:hover,
   .top__btn:hover {
     transform: scale(1.1);

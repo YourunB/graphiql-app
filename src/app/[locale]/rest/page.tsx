@@ -8,10 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function RestPage() {
-  
   return (
     <main className={s.page}>
-        <h2 className={s['page__title']}>Restfull</h2>
+      <h2 className={s['page__title']}>Restfull</h2>
       <RestForm />
     </main>
   );

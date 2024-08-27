@@ -133,13 +133,16 @@ const Header = () => {
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
             {t('home')}
           </Link>
-          {user ?
+          {user ? (
             <>
-              <Link href="/graph" className={styles.homeLink}>{t('Graph')}</Link>
-              <Link href="/rest" className={styles.homeLink}>{t('Rest')}</Link>
+              <Link href="/graph" className={styles.homeLink}>
+                {t('Graph')}
+              </Link>
+              <Link href="/rest" className={styles.homeLink}>
+                {t('Rest')}
+              </Link>
             </>
-          : null
-          }
+          ) : null}
         </div>
 
         {isMobile ? (

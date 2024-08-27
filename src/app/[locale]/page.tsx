@@ -1,5 +1,5 @@
 import s from './page.module.css';
-import AboutTeam from "../components/AboutTeam";
+import AboutTeam from '../components/AboutTeam';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function PageHome() {
-
   return (
     <main className={s.page}>
       <AboutTeam />
