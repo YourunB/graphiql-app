@@ -6,9 +6,12 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { githubDark } from '@uiw/codemirror-theme-github'
 import { useRef, useCallback, useState } from 'react';
+import * as prettier from 'prettier/standalone';
+import parserGraphql from "prettier/plugins/graphql";
 
 export default function GraphForm() {
   const inputRef = useRef(null);
+  const resultCodeMirrorRef = useRef(null);
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
   const [queryValue, setqueryValue] = useState(`
@@ -87,11 +90,35 @@ export default function GraphForm() {
 
   checkAuth();
 
+  const formatCode = async (code: string) => {
+    try {
+      const prettierVersion = prettier.format(code, {
+        parser: "graphql",
+        plugins: [parserGraphql],
+        trailingComma: "es5",
+        tabWidth: 2,
+        semi: true,
+        singleQuote: true,
+        printWidth: 120
+      });
+      return prettierVersion;
+    } catch (error) {
+      console.error("Formatting error:", error);
+    }
+  };
+
+  const format = async (code: string) => {
+    if (code) {
+      const resultFormat = await formatCode(code);
+      console.log(resultFormat);
+    }
+  }
+
   return (
     <div className={s['graph-form']}>
       <div className={s.top}>
         <input className={s['top__input']} defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/>
-        <button className={s['top__btn']}>fix</button>
+        <button className={s['top__btn']} onClick={() => format(queryValue)}>fix</button>
         <button className={s['top__btn']}>+</button>
         <button className={s['top__btn']} onClick={() => getDataGraphApi(inputRef.current.value, queryValue, variablesValue, headersValue)}>&#10003;</button>
       </div>
@@ -105,7 +132,7 @@ export default function GraphForm() {
         </div>
 
         <div className={s['form-right']}>
-          <CodeMirror value={resultValue} height="600px" extensions={[javascript({ jsx: true })]} onChange={onChangeResult} theme={githubDark} readOnly/>
+          <CodeMirror ref={resultCodeMirrorRef} value={resultValue} height="600px" extensions={[javascript({ jsx: true })]} onChange={onChangeResult} theme={githubDark} readOnly/>
         </div>
       </div>
 
