@@ -11,7 +11,7 @@ export default function GraphPage() {
 
   return (
     <main className={s.page}>
-      <h2>GraphiQL</h2>
+      <h2 className={s['page__title']}>GraphiQL</h2>
       <GraphForm />
     </main>
   );
