@@ -11,7 +11,7 @@ export default function RestPage() {
   
   return (
     <main className={s.page}>
-      Rest page...
+        <h2 className={s['page__title']}>Restfull</h2>
       <RestForm />
     </main>
   );
