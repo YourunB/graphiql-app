@@ -7,13 +7,14 @@ import { javascript } from '@codemirror/lang-javascript';
 import { githubDark } from '@uiw/codemirror-theme-github'
 import { useRef, useCallback, useState } from 'react';
 import { formatCode } from '../utils/formatCode';
+import { getDataGraphApi } from '../modules/api';
 
 export default function GraphForm() {
   const inputRef = useRef(null);
   const resultCodeMirrorRef = useRef(null);
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
-  const [queryValue, setqueryValue] = useState(`
+  const [queryValue, setQueryValue] = useState(`
     query {
       characters(page: 2, filter: { name: "rick" }) {
         info {
@@ -37,7 +38,7 @@ export default function GraphForm() {
 
   const onChangeQuery = useCallback((val, viewUpdate) => {
     console.log(viewUpdate);
-    setqueryValue(val);
+    setQueryValue(val);
   }, []);
 
   const onChangeVariables = useCallback((val, viewUpdate) => {
@@ -64,19 +65,6 @@ export default function GraphForm() {
   //  'Content-Type': 'application/json',
   //};
   
-  const getDataGraphApi = (url: string, query: string, variablesObj = {}, headersObj = {}) => {
-    fetch(url, {
-      method: 'POST',
-      headers: headersObj ? headersObj : {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query, variablesObj }),
-    })
-      .then(response => response.json())
-      .then(data => setResultValue(JSON.stringify(data)))
-      .catch(error => console.error('Error:', error));
-  }
-
   const toggleShowVariables = () => {
     setShowVariables(!showVariables);
     if (showHeaders) setShowHeaders(!showHeaders);
@@ -89,20 +77,32 @@ export default function GraphForm() {
 
   checkAuth();
 
-  const format = async (code: string) => {
-    if (code) {
-      const resultFormat = await formatCode(code, 'graphql');
-      console.log(resultFormat);
+  const format = async (code: string, type: string, area: string) => {
+    if (code && type) {
+      const resultFormat = await formatCode(code, type);
+      if (typeof resultFormat === 'string') {
+        if (area === 'query') setQueryValue(resultFormat);
+        if (area === 'variables') setVariablesValue(resultFormat);
+        if (area === 'headers') setHeadersValue(resultFormat);
+        if (area === 'result') setResultValue(resultFormat);
+      }
     }
+  }
+
+  const loadDataFromApi = async () => {
+    const data = await getDataGraphApi(inputRef.current.value, queryValue, variablesValue, headersValue);
+    const result = JSON.stringify(data);
+    console.log(result)
+    format(result, 'json', 'result')
   }
 
   return (
     <div className={s['graph-form']}>
       <div className={s.top}>
         <input className={s['top__input']} defaultValue={'https://rickandmortyapi.com/graphql'} ref={inputRef} placeholder='Base URL...'/>
-        <button className={s['top__btn']} onClick={() => format(queryValue)}>fix</button>
+        <button className={s['top__btn']} onClick={() => format(queryValue, 'graphql', 'query')}>fix</button>
         <button className={s['top__btn']}>+</button>
-        <button className={s['top__btn']} onClick={() => getDataGraphApi(inputRef.current.value, queryValue, variablesValue, headersValue)}>&#10003;</button>
+        <button className={s['top__btn']} onClick={() => loadDataFromApi()}>&#10003;</button>
       </div>
       
       <div className={s.box}>

@@ -2,6 +2,7 @@
 import * as prettier from 'prettier/standalone';
 import parserGraphql from "prettier/plugins/graphql";
 import parserBabel from "prettier/plugins/babel";
+import parserEstree from "prettier/plugins/estree";
 
 export const formatCode = async (code: string, type: string) => {
   try {
@@ -10,11 +11,13 @@ export const formatCode = async (code: string, type: string) => {
       parser = "graphql";
     } else if (type === "rest") {
       parser = "babel";
-    } else return;
+    } else if (type === "json") {
+      parser = "json";
+    }
 
     const prettierVersion = prettier.format(code, {
       parser: parser,
-      plugins: [parserGraphql, parserBabel],
+      plugins: [parserGraphql, parserBabel, parserEstree],
       trailingComma: "es5",
       tabWidth: 2,
       semi: true,
