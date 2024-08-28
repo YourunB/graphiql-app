@@ -1,4 +1,5 @@
 import s from './page.module.css';
+
 import AboutTeam from '../components/AboutTeam';
 import { Metadata } from 'next';
 
