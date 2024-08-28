@@ -8,6 +8,7 @@ import { githubDark } from '@uiw/codemirror-theme-github';
 import { useRef, useCallback, useState } from 'react';
 import { formatCode } from '../utils/formatCode';
 import { getDataRestApi } from '../modules/api';
+import { encodeBase64 } from '../modules/encodeBase64';
 
 export default function RestForm() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,6 +19,14 @@ export default function RestForm() {
   const [variablesValue, setVariablesValue] = useState('');
   const [headersValue, setHeadersValue] = useState('');
   const [resultValue, setResultValue] = useState('');
+
+  const handleBlur = () => {
+    const url = new URL(`${location.origin}/GET/${encodeBase64(inputRef.current?.value)}/${encodeBase64(queryValue)}`);
+    const params = new URLSearchParams(url.search);
+    if (headersValue) params.append('headers', encodeBase64(headersValue));
+    if (variablesValue) params.append('variables', encodeBase64(variablesValue));
+    window.history.pushState({}, '', url);
+  };
 
   const onChangeQuery = useCallback((val, viewUpdate) => {
     console.log(viewUpdate);
@@ -82,6 +91,7 @@ export default function RestForm() {
           className={s['top__input']}
           defaultValue={'https://rickandmortyapi.com/api/character'}
           ref={inputRef}
+          onBlur={handleBlur}
           placeholder="Base URL..."
         />
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>
@@ -102,6 +112,7 @@ export default function RestForm() {
             height="600px"
             extensions={[javascript({ jsx: true })]}
             onChange={onChangeQuery}
+            onBlur={handleBlur}
             theme={githubDark}
           />
           <button
@@ -122,6 +133,7 @@ export default function RestForm() {
               height="200px"
               extensions={[javascript({ jsx: true })]}
               onChange={onChangeVariables}
+              onBlur={handleBlur}
               theme={githubDark}
             />
           ) : null}
@@ -131,6 +143,7 @@ export default function RestForm() {
               height="200px"
               extensions={[javascript({ jsx: true })]}
               onChange={onChangeHeaders}
+              onBlur={handleBlur}
               theme={githubDark}
             />
           ) : null}
