@@ -1,6 +1,13 @@
 import { useState, createContext, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+enum ErrorType {
+  INVALID_CREDENTIALS = 'invalid-credential',
+  USER_EXISTS = 'email-already-in-use',
+  NETWORK_ERROR = 'network-request-failed',
+  UNKNOWN_ERROR = 'unknown-error',
+}
+
 interface ErrorContextType {
   error: string | null;
   showError: (message?: string) => void;
@@ -24,15 +31,24 @@ export const ErrorProvider: React.FC<ErrorProviderProps> = ({ children }) => {
 
   const [error, setError] = useState<string | null>(null);
 
-  const transformError = (message?: string) => {
-    if (message?.includes('invalid-credential')) setError(t('errors.invalid'));
-    if (message?.includes('email-already-in-use')) setError(t('errors.userExist'));
-    if (message?.includes('network-request-failed')) setError(t('errors.network'));
-    if (message) setError(message);
+  const transformError = (message?: string): string => {
+    if (!message) return t('errors.unknown');
+    const errorMessage = message.toLowerCase();
+
+    switch (true) {
+      case errorMessage.includes(ErrorType.INVALID_CREDENTIALS):
+        return t('errors.invalid');
+      case errorMessage.includes(ErrorType.USER_EXISTS):
+        return t('errors.userExist');
+      case errorMessage.includes(ErrorType.NETWORK_ERROR):
+        return t('errors.network');
+      default:
+        return t('errors.unknown');
+    }
   };
 
   const showError = (message?: string) => {
-    transformError(message);
+    setError(transformError(message));
     setTimeout(() => setError(null), 5000);
   };
 
