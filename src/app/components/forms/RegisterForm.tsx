@@ -3,28 +3,34 @@ import s from './RegisterForm.module.css';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { registerSchema } from '@/app/utils/validation';
+import { createRegisterSchema } from '@/app/utils/validation';
 import Link from 'next/link';
 import { registerWithEmailAndPassword } from '@/firebase';
 import { RegisterData } from '@/app/type';
 import { useTranslation } from 'react-i18next';
+import { useError } from '@/app/hooks/useError';
 
 export default function RegisterForm() {
+  const { showError } = useError();
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(createRegisterSchema(t)),
     mode: 'onChange',
   });
 
   const submitFrom = async (data: RegisterData) => {
     try {
       await registerWithEmailAndPassword(data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        showError((error as Error).message);
+      } else {
+        showError('An unknown error occurred');
+      }
     }
   };
 

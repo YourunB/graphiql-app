@@ -2,28 +2,40 @@
 import s from './LoginForm.module.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '@/app/utils/validation';
+
 import Link from 'next/link';
 import { logInWithEmailAndPassword } from '@/firebase';
 import { LoginData } from '@/app/type';
 import { useTranslation } from 'react-i18next';
+import { useError } from '@/app/hooks/useError';
+import { createLoginSchema } from '@/app/utils/validation';
+
+type Error = {
+  message: string;
+  code?: string;
+};
 
 export default function LoginForm() {
+  const { showError } = useError();
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(createLoginSchema(t)),
     mode: 'onChange',
   });
 
   const submitFrom = async (data: LoginData) => {
     try {
       await logInWithEmailAndPassword(data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        showError((error as Error).message);
+      } else {
+        showError(t('errors.unknown'));
+      }
     }
   };
 
