@@ -91,7 +91,7 @@ export default function RestForm() {
           className={s['top__input']}
           defaultValue={'https://rickandmortyapi.com/api/character'}
           ref={inputRef}
-          onBlur={handleBlur}
+          onChange={handleBlur}
           placeholder="Base URL..."
         />
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>

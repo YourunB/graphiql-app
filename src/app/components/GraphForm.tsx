@@ -108,7 +108,7 @@ export default function GraphForm() {
           className={s['top__input']}
           defaultValue={'https://rickandmortyapi.com/graphql'}
           ref={inputRef}
-          onBlur={handleBlur}
+          onChange={handleBlur}
           placeholder="Base URL..."
         />
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>
