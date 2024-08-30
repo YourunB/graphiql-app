@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function RegisterPage() {
-
   return (
     <main className={s.register} data-testid="child">
       <RegisterForm />

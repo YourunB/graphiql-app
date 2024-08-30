@@ -1,3 +1,4 @@
+'use client';
 import s from './Error.module.css';
 import { useError } from '@/app/hooks/useError';
 
