@@ -3,44 +3,57 @@ import s from './LoginForm.module.css';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '@/app/utils/validation';
+
 import Link from 'next/link';
 import { logInWithEmailAndPassword } from '@/firebase';
 import { LoginData } from '@/app/type';
 import { useTranslation } from 'react-i18next';
+import { useError } from '@/app/hooks/useError';
+import { createLoginSchema } from '@/app/utils/validation';
 import { auth } from '@/firebase';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+type Error = {
+  message: string;
+  code?: string;
+};
+
 export default function LoginForm() {
+  const { showError } = useError();
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
 
   useEffect(() => {
     if (user) router.push('/');
   }, [loading, router, user]);
-  
+
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(loginSchema),
+  } = useForm<LoginData>({
+    resolver: yupResolver(createLoginSchema(t)),
     mode: 'onChange',
   });
 
   const submitFrom = async (data: LoginData) => {
     try {
       await logInWithEmailAndPassword(data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        showError((error as Error).message);
+      } else {
+        showError(t('errors.unknown'));
+      }
     }
   };
 
   return (
-    !loading && !user ? (
+    !loading &&
+    !user && (
       <form className={s['login__form']} onSubmit={handleSubmit(submitFrom)}>
         <div className={s['login__content']}>
           <div className={s['login__field']}>
@@ -72,7 +85,7 @@ export default function LoginForm() {
           </div>
           {errors.password && <div className={s.error}>{errors.password.message}</div>}
         </div>
-      
+
         <div className={s['login__btns']}>
           <button disabled={!isValid} className={s['login__btn']} type="submit">
             {t('login')}:
@@ -83,6 +96,6 @@ export default function LoginForm() {
           {t('now')}.
         </div>
       </form>
-    ) : <></>
+    )
   );
 }

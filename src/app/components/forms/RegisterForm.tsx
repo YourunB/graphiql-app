@@ -3,11 +3,12 @@ import s from './RegisterForm.module.css';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { registerSchema } from '@/app/utils/validation';
+import { createRegisterSchema } from '@/app/utils/validation';
 import Link from 'next/link';
 import { registerWithEmailAndPassword } from '@/firebase';
 import { RegisterData } from '@/app/type';
 import { useTranslation } from 'react-i18next';
+import { useError } from '@/app/hooks/useError';
 import { auth } from '@/firebase';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -16,6 +17,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 export default function RegisterForm() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
+  const { showError } = useError();
 
   useEffect(() => {
     if (user) router.push('/');
@@ -26,21 +28,26 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
-    resolver: yupResolver(registerSchema),
+  } = useForm<RegisterData>({
+    resolver: yupResolver(createRegisterSchema(t)),
     mode: 'onChange',
   });
 
   const submitFrom = async (data: RegisterData) => {
     try {
       await registerWithEmailAndPassword(data);
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        showError((error as Error).message);
+      } else {
+        showError('An unknown error occurred');
+      }
     }
   };
 
   return (
-    !loading && !user ? (
+    !loading &&
+    !user && (
       <form className={s['register__form']} onSubmit={handleSubmit(submitFrom)}>
         <div className={s['register__content']}>
           <div className={s['register__field']}>
@@ -83,6 +90,7 @@ export default function RegisterForm() {
               className={s['register__input']}
               placeholder={t('fields.password.placeholder')}
               id="password"
+              autoComplete="password"
             />
           </div>
           {errors.password && <div className={s.error}>{errors.password.message}</div>}
@@ -98,6 +106,7 @@ export default function RegisterForm() {
               className={s['register__input']}
               placeholder={t('fields.confirmPassword.placeholder')}
               id="confirmPassword"
+              autoComplete="confirmPassword"
             />
           </div>
           {errors.confirmPassword && <div className={s.error}>{errors.confirmPassword.message}</div>}
@@ -113,6 +122,6 @@ export default function RegisterForm() {
           {t('now')}.
         </div>
       </form>
-    ) : <></>
+    )
   );
 }

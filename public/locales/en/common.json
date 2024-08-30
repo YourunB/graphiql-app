@@ -1,8 +1,8 @@
 {
   "home": "Main",
   "welcome": "Welcome to our application",
-  "login": "Log in",
-  "register": "Register",
+  "login": "Sign in",
+  "register": "Sign up",
   "logout": "Log out",
   "authors": {
     "title": "Authors",
@@ -54,5 +54,21 @@
       "title": "The Rolling Scopes",
       "description": "RS School offers a unique learning experience as a free, community-based online education initiative. No matter your age, professional employment, or place of residence. The RS School has been run by the Rolling Scopes community since 2013. The Rolling Scopes brings together developers of all levels who are passionate about technologies such as JavaScript, Front-end development, AWS, and more. Today, over 600 developer-volunteers from various countries and companies assist as mentors. We believe in important ideas that guide our mission."
     }
+  },
+  "errors": {
+    "invalid": "Invalid email or password. Please check your credentials and try again.",
+    "userExist": "A user with this email already exists. Please use a different email or try to log in.",
+    "network": "Network error. Please check your internet connection and try again.",
+    "unknown": "An unknown error occurred. Please try again later."
+  },
+  "validation": {
+    "invalidEmail": "Invalid email address",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "passwordComplexity": "Password must contain at least 1 letter, 1 number, and 1 special character",
+    "passwordLength": "Password must be at least 8 characters long",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordsMustMatch": "Passwords must match"
   }
 }

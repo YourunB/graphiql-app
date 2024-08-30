@@ -22,7 +22,6 @@ const logInWithEmailAndPassword = async ({ email, password }: LoginData) => {
 };
 
 const registerWithEmailAndPassword = async ({ name, email, password }: RegisterData) => {
-  console.log(name, email, password);
   const res = await createUserWithEmailAndPassword(auth, email, password);
   const user = res.user;
   await addDoc(collection(db, 'users'), {
