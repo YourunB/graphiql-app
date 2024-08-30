@@ -7,19 +7,17 @@ import Error from '../components/error/Error';
 import I18nInitializer from '../modules/i18nInitializer';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-
   return (
     <html lang="en">
       <body>
         <ErrorProvider>
-        <I18nInitializer />
+          <I18nInitializer />
           <Error />
           <Header />
           <GraphAnimation />
           {children}
           <Footer />
         </ErrorProvider>
-
       </body>
     </html>
   );
