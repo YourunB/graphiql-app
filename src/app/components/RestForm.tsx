@@ -36,12 +36,9 @@ export default function RestForm() {
       setHeadersValue(headers || '');
       setVariablesValue(variables || '');
       setQueryValue(query || '');
-      console.log(input);
       setInputValue(input || '');
       setMethod(method);
     }
-
-    console.log('Decoded REST Data:', data);
   }, [loading, data]);
 
   const createUrl = (value: string) => {
@@ -66,7 +63,6 @@ export default function RestForm() {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     createUrl(value);
-    console.log(value);
     setInputValue(value);
   };
 
@@ -117,7 +113,6 @@ export default function RestForm() {
   };
 
   const loadDataFromApi = async () => {
-    console.log(inputValue);
     const data = await getDataRestApi(inputValue, queryValue, variablesValue, headersValue);
     const result = JSON.stringify(data);
     format(result, 'json', 'result');

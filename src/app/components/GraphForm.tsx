@@ -54,8 +54,6 @@ query {
       setQueryValue(query || '');
       setInputValue(input || '');
     }
-
-    console.log('Decoded REST Data:', data);
   }, [loading, data]);
 
   const createUrl = (value?: string) => {
