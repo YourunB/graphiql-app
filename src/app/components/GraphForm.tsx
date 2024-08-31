@@ -1,6 +1,5 @@
 'use client';
 import s from './GraphForm.module.css';
-import useCheckAuth from '../utils/useCheckAuth';
 import React, { useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
@@ -14,6 +13,7 @@ import { auth } from '@/firebase';
 import { RestData, saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
+import useCheckAuth from '../utils/useCheckAuth';
 
 export default function GraphForm() {
   const pathname = usePathname();
