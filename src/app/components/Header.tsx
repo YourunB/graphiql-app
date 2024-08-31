@@ -141,6 +141,9 @@ const Header = () => {
               <Link href="/rest" className={styles.homeLink}>
                 {t('Rest')}
               </Link>
+              <Link href="/history" className={styles.homeLink}>
+                {t('history.rout')}
+              </Link>
             </>
           ) : null}
         </div>
