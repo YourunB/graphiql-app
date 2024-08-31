@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { render } from '@testing-library/react';
+import { describe, test, vi, beforeEach } from 'vitest';
 import RootLayout from '../../../../src/app/[locale]/layout';
-import PageHome from '../../../../src/app/[locale]/page'
+import PageHome from '../../../../src/app/[locale]/page';
 import { ErrorProvider } from '../../../../src/app/components/error/ErrorProvider';
 import I18nInitializer from '../../../../src/app/modules/i18nInitializer';
 import Error from '../../../../src/app/components/error/Error';
