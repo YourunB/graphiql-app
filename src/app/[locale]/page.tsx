@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PageHome() {
   return (
-    <main className={s.page}>
+    <main className={s.page} data-testid="home">
       <AboutTeam />
     </main>
   );
