@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
         <div className={styles.logoSection}>
           <a href="https://rs.school/courses/reactjs" title="RS School React Course">
-            <Image src={RSLogo} alt={'RS Logo'} width={86} height={45} className={styles.rsLogo}/>
+            <Image src={RSLogo} alt={'RS Logo'} width={86} height={45} className={styles.rsLogo} />
           </a>
         </div>
       </div>
