@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import i18n from '@/i18n';
+import i18n from '../../i18n';
 
 const I18nInitializer = () => {
   useEffect(() => {

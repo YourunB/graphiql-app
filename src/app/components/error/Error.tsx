@@ -1,6 +1,6 @@
 'use client';
 import s from './Error.module.css';
-import { useError } from '@/app/hooks/useError';
+import { useError } from '../../../app/hooks/useError';
 
 const Error: React.FC = () => {
   const { error, clearError } = useError();
