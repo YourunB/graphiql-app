@@ -70,5 +70,10 @@
     "passwordLength": "Password must be at least 8 characters long",
     "confirmPasswordRequired": "Please confirm your password",
     "passwordsMustMatch": "Passwords must match"
+  },
+  "history": {
+    "rout": "History",
+    "empty": "You haven't executed any requests",
+    "full": "History Requests"
   }
 }
