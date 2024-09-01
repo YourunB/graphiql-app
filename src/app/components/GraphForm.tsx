@@ -47,7 +47,9 @@ export default function GraphForm() {
   "locationId": 1,
   "episodeIds": [1, 2]
 }`);
-  const [headersValue, setHeadersValue] = useState('');
+  const [headersValue, setHeadersValue] = useState(`{
+  "X-Custom-Header": "CustomValue"
+}`);
   const [resultValue, setResultValue] = useState('');
 
   useEffect(() => {
@@ -135,7 +137,8 @@ export default function GraphForm() {
   const loadDataFromApi = async () => {
     try {
       const variables = JSON.parse(variablesValue || '{}');
-      const data = await getDataGraphApi(inputValue, queryValue, variables, headersValue);
+      const headers = JSON.parse(headersValue || '{}');
+      const data = await getDataGraphApi(inputValue, queryValue, variables, headers);
       const result = JSON.stringify(data, null, 2);
       setResultValue(result);
 
@@ -143,13 +146,15 @@ export default function GraphForm() {
         input: inputValue,
         query: queryValue,
         variables: JSON.stringify(variables),
-        headers: headersValue,
+        headers: JSON.stringify(headers),
         method: 'graph',
       };
 
       if (user) saveDataFromRest(dataToSave, user?.email);
     } catch {
-      setResultValue('Error parsing variables or fetching data. Please ensure variables are in valid JSON format.');
+      setResultValue(
+        'Error parsing variables or fetching data. Please ensure variables and headers are in valid JSON format.'
+      );
     }
   };
 

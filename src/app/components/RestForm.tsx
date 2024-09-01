@@ -26,7 +26,9 @@ export default function RestForm() {
   "name": "Rick",
   "status": "alive"
 }`);
-  const [headersValue, setHeadersValue] = useState('');
+  const [headersValue, setHeadersValue] = useState(`{
+  "X-Custom-Header": "CustomValue"
+}`);
   const [resultValue, setResultValue] = useState('');
   const [user, loading] = useAuthState(auth);
   const [method, setMethod] = useState('GET');
@@ -118,7 +120,8 @@ export default function RestForm() {
   const loadDataFromApi = async () => {
     try {
       const variables = JSON.parse(variablesValue || '{}');
-      const data = await getDataRestApi(inputValue, queryValue, variables, headersValue);
+      const headers = JSON.parse(headersValue || '{}');
+      const data = await getDataRestApi(inputValue, queryValue, variables, headers);
       const result = JSON.stringify(data, null, 2);
       setResultValue(result);
 
@@ -126,13 +129,15 @@ export default function RestForm() {
         input: inputValue,
         query: queryValue,
         variables: JSON.stringify(variables),
-        headers: headersValue,
+        headers: JSON.stringify(headers),
         method: method,
       };
 
       if (user) saveDataFromRest(dataToSave, user?.email);
     } catch {
-      setResultValue('Error parsing variables or fetching data. Please ensure variables are in valid JSON format.');
+      setResultValue(
+        'Error parsing variables or fetching data. Please ensure variables and headers are in valid JSON format.'
+      );
     }
   };
 
