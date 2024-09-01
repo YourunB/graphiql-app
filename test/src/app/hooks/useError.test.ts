@@ -1,4 +1,4 @@
-import { describe, it, vi, expect } from 'vitest';
+import { describe, test, vi, expect } from 'vitest';
 import { useContext } from 'react';
 import { useError } from '../../../../src/app/hooks/useError';
 
@@ -12,7 +12,7 @@ vi.mock('react', async (importOriginal) => {
 });
 
 describe('useError', () => {
-  it('должен возвращать контекст ошибки', () => {
+  test('return context', () => {
     const mockContext = { error: 'Test error' };
     useContext.mockReturnValue(mockContext);
 
@@ -20,7 +20,7 @@ describe('useError', () => {
     expect(result).toBe(mockContext);
   });
 
-  it('должен возвращать undefined, если контекст не задан', () => {
+  test('return undefined', () => {
     useContext.mockReturnValue(undefined);
 
     const result = useError();
