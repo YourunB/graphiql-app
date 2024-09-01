@@ -1,5 +1,5 @@
 import s from './page.module.css';
-import GraphForm from '@/app/components/GraphForm';
+import GraphForm from '../../components/GraphForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
