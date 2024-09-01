@@ -19,7 +19,7 @@
   },
   "overrides": [
     {
-      "files": ["src/app/page.tsx", "src/app/**/page.tsx", "src/app/not-found.tsx", "src/app/layout.tsx"],
+      "files": ["src/**/page.tsx"],
       "rules": {
         "react-refresh/only-export-components": "off"
       }
