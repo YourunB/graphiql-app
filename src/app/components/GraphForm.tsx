@@ -23,9 +23,9 @@ export default function GraphForm() {
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
   const [inputValue, setInputValue] = useState('https://rickandmortyapi.com/graphql');
-  const [queryValue, setQueryValue] = useState(`
-query {
-  characters(page: 2, filter: { name: "rick" }) {
+  const [queryValue, setQueryValue] =
+    useState(`query ($page: Int!, $name: String!, $locationId: ID!, $episodeIds: [ID!]!) {
+  characters(page: $page, filter: { name: $name }) {
     info {
       count
     }
@@ -33,15 +33,20 @@ query {
       name
     }
   }
-  location(id: 1) {
+  location(id: $locationId) {
     id
   }
-  episodesByIds(ids: [1, 2]) {
+  episodesByIds(ids: $episodeIds) {
     id
   }
 }
   `);
-  const [variablesValue, setVariablesValue] = useState('');
+  const [variablesValue, setVariablesValue] = useState(`{
+  "page": 2,
+  "name": "rick",
+  "locationId": 1,
+  "episodeIds": [1, 2]
+}`);
   const [headersValue, setHeadersValue] = useState('');
   const [resultValue, setResultValue] = useState('');
 
@@ -128,19 +133,24 @@ query {
   };
 
   const loadDataFromApi = async () => {
-    const data = await getDataGraphApi(inputValue, queryValue, variablesValue, headersValue);
-    const result = JSON.stringify(data);
-    format(result, 'json', 'result');
+    try {
+      const variables = JSON.parse(variablesValue || '{}');
+      const data = await getDataGraphApi(inputValue, queryValue, variables, headersValue);
+      const result = JSON.stringify(data, null, 2);
+      setResultValue(result);
 
-    const dataToSave: RestData = {
-      input: inputValue,
-      query: queryValue,
-      variables: variablesValue,
-      headers: headersValue,
-      method: 'graph',
-    };
+      const dataToSave: RestData = {
+        input: inputValue,
+        query: queryValue,
+        variables: JSON.stringify(variables),
+        headers: headersValue,
+        method: 'graph',
+      };
 
-    if (user) saveDataFromRest(dataToSave, user?.email);
+      if (user) saveDataFromRest(dataToSave, user?.email);
+    } catch {
+      setResultValue('Error parsing variables or fetching data. Please ensure variables are in valid JSON format.');
+    }
   };
 
   return (

@@ -1,6 +1,5 @@
 'use client';
 import s from './RestForm.module.css';
-
 import React, { useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
@@ -23,7 +22,10 @@ export default function RestForm() {
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
   const [queryValue, setQueryValue] = useState('');
-  const [variablesValue, setVariablesValue] = useState('');
+  const [variablesValue, setVariablesValue] = useState(`{
+  "name": "Rick",
+  "status": "alive"
+}`);
   const [headersValue, setHeadersValue] = useState('');
   const [resultValue, setResultValue] = useState('');
   const [user, loading] = useAuthState(auth);
@@ -114,19 +116,24 @@ export default function RestForm() {
   };
 
   const loadDataFromApi = async () => {
-    const data = await getDataRestApi(inputValue, queryValue, variablesValue, headersValue);
-    const result = JSON.stringify(data);
-    format(result, 'json', 'result');
+    try {
+      const variables = JSON.parse(variablesValue || '{}');
+      const data = await getDataRestApi(inputValue, queryValue, variables, headersValue);
+      const result = JSON.stringify(data, null, 2);
+      setResultValue(result);
 
-    const dataToSave = {
-      input: inputValue,
-      query: queryValue,
-      variables: variablesValue,
-      headers: headersValue,
-      method: method,
-    };
+      const dataToSave = {
+        input: inputValue,
+        query: queryValue,
+        variables: JSON.stringify(variables),
+        headers: headersValue,
+        method: method,
+      };
 
-    if (user) saveDataFromRest(dataToSave, user?.email);
+      if (user) saveDataFromRest(dataToSave, user?.email);
+    } catch {
+      setResultValue('Error parsing variables or fetching data. Please ensure variables are in valid JSON format.');
+    }
   };
 
   return (
