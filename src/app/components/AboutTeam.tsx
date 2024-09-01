@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import s from './AboutTeam.module.css';
 import { useTranslation } from 'react-i18next';
-import { Author } from '@/app/type';
+import { Author } from '../../app/type';
 import RSImage from '../../../public/images/rs-character.webp';
 
 export default function AboutTeam() {
@@ -61,7 +61,7 @@ export default function AboutTeam() {
           <h2 className={s.sectionTitle}>{t('mainPage.rss.title')}</h2>
           <p className={s.rsDescription}>{t('mainPage.rss.description')}</p>
         </div>
-        <Image src={RSImage} alt="RS School character" className={s.rsImage} />
+        <Image src={RSImage} alt="RS School character" width={200} height={200} className={s.rsImage} />
       </section>
     </>
   );
