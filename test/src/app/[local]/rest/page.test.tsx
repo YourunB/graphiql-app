@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import RestPage from '../../../../../src/app/[locale]/rest/page';
 
 vi.mock('../../../../../src/app/components/RestForm.tsx', () => ({
@@ -8,7 +8,7 @@ vi.mock('../../../../../src/app/components/RestForm.tsx', () => ({
 }));
 
 describe('RestPage', () => {
-  it('renders correctly', () => {
+  test('renders correctly', () => {
     const { getByText } = render(<RestPage />);
     expect(getByText('Restfull')).toBeInTheDocument();
     expect(getByText('Mocked RestForm')).toBeInTheDocument();
