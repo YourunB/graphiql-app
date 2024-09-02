@@ -55,34 +55,44 @@ describe('Header component', () => {
     expect(screen.getByText('home')).toBeInTheDocument();
   });
 
-  test('render user links when user logged in', () => {
-    useAuthState.mockReturnValue([{ email: 'test@example.com' }]);
+
+  test('renders user links when user is logged in', () => {
+    useAuthState.mockReturnValue([{
+      email: 'test@example.com',
+      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
+    }]);
     render(<Header />);
     expect(screen.getByText('Graph')).toBeInTheDocument();
     expect(screen.getByText('Rest')).toBeInTheDocument();
   });
-
-  test('render user email when user logged in', () => {
-    useAuthState.mockReturnValue([{ email: 'test@example.com' }]);
+ 
+  test('renders user email when user is logged in', () => {
+    useAuthState.mockReturnValue([{
+      email: 'test@example.com',
+      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
+    }]);
     render(<Header />);
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
   });
 
-  test('call onLogout when logout button clicked', () => {
-    useAuthState.mockReturnValue([{ email: 'test@example.com' }]);
+  test('calls onLogout when logout button is clicked', () => {
+    useAuthState.mockReturnValue([{
+      email: 'test@example.com',
+      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
+    }]);
     render(<Header />);
     fireEvent.click(screen.getByText('logout'));
   });
 
-  test('change color on scroll', () => {
+  test('changes background color on scroll', () => {
     render(<Header />);
     fireEvent.scroll(window, { target: { scrollY: 100 } });
   });
 
-  test('restore color when scroll to top', () => {
+  test('restores background color when scrolled to top', () => {
     render(<Header />);
     fireEvent.scroll(window, { target: { scrollY: 0 } });
-    expect(document.querySelector('header').style.background).toBe('transparent');
+    expect(screen.getByTestId('header').style.background).toBe('transparent');
   });
 
   test('render logo', () => {
