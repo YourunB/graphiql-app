@@ -126,7 +126,7 @@ const Header = () => {
   const currentLangOption = languageOptions.find((option) => option.code === currentLanguage);
 
   return (
-    <header className={styles.header} style={{ background }} data-testid='header'>
+    <header className={styles.header} style={{ background }} data-testid="header">
       <div className={styles.toolbar}>
         <div className={styles.logoSection}>
           <Link href="/" className={styles.homeLink}>

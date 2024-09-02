@@ -55,31 +55,36 @@ describe('Header component', () => {
     expect(screen.getByText('home')).toBeInTheDocument();
   });
 
-
   test('renders user links when user is logged in', () => {
-    useAuthState.mockReturnValue([{
-      email: 'test@example.com',
-      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
-    }]);
+    useAuthState.mockReturnValue([
+      {
+        email: 'test@example.com',
+        getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
+      },
+    ]);
     render(<Header />);
     expect(screen.getByText('Graph')).toBeInTheDocument();
     expect(screen.getByText('Rest')).toBeInTheDocument();
   });
- 
+
   test('renders user email when user is logged in', () => {
-    useAuthState.mockReturnValue([{
-      email: 'test@example.com',
-      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
-    }]);
+    useAuthState.mockReturnValue([
+      {
+        email: 'test@example.com',
+        getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
+      },
+    ]);
     render(<Header />);
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
   });
 
   test('calls onLogout when logout button is clicked', () => {
-    useAuthState.mockReturnValue([{
-      email: 'test@example.com',
-      getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' })
-    }]);
+    useAuthState.mockReturnValue([
+      {
+        email: 'test@example.com',
+        getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
+      },
+    ]);
     render(<Header />);
     fireEvent.click(screen.getByText('logout'));
   });
