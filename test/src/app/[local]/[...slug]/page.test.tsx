@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
-import RestPage from '../../../../../src/app/[locale]/rest/page';
+import RestPage from '../../../../../src/app/[locale]/[...slug]/page';
 
 vi.mock('../../../../../src/app/components/RestForm.tsx', () => ({
   __esModule: true,

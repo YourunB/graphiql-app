@@ -1,7 +1,7 @@
 import { vi, describe, afterEach, beforeEach, test } from 'vitest';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import checkAuth from '../../../../src/app/utils/checkAuth';
+import useCheckAuth from '../../../../src/app/utils/useCheckAuth';
 import { renderHook, act } from '@testing-library/react';
 
 vi.mock('next/navigation', () => ({
@@ -43,7 +43,7 @@ describe('checkAuth', () => {
     useAuthState.mockReturnValue([null, false]);
 
     await act(async () => {
-      renderHook(() => checkAuth());
+      renderHook(() => useCheckAuth());
     });
 
     expect(mockPush).toHaveBeenCalledWith('/');
@@ -53,7 +53,7 @@ describe('checkAuth', () => {
     useAuthState.mockReturnValue([{ uid: '123' }, false]);
 
     await act(async () => {
-      renderHook(() => checkAuth());
+      renderHook(() => useCheckAuth());
     });
 
     expect(mockPush).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('checkAuth', () => {
     useAuthState.mockReturnValue([null, true]);
 
     await act(async () => {
-      renderHook(() => checkAuth());
+      renderHook(() => useCheckAuth());
     });
 
     expect(mockPush).not.toHaveBeenCalled();
