@@ -8,9 +8,9 @@ import GraphQL from '../../../public/icons/logo-graphql.png';
 import flagUS from '../../../public/icons/flag-us.png';
 import flagRU from '../../../public/icons/flag-ru.png';
 import { useTranslation } from 'react-i18next';
-import i18n from '@/i18n';
+import i18n from '../../i18n';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/firebase';
+import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 
 type Language = 'en' | 'ru';
@@ -126,7 +126,7 @@ const Header = () => {
   const currentLangOption = languageOptions.find((option) => option.code === currentLanguage);
 
   return (
-    <header className={styles.header} style={{ background }}>
+    <header className={styles.header} style={{ background }} data-testid="header">
       <div className={styles.toolbar}>
         <div className={styles.logoSection}>
           <Link href="/" className={styles.homeLink}>

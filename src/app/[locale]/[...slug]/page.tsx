@@ -1,5 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import s from './page.module.css';
-import RestForm from '@/app/components/RestForm';
+import RestForm from '../../components/RestForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -13,7 +13,7 @@ export default function History() {
   useEffect(() => {
     if (loading) return;
     setData(getDataFromLS(user?.email));
-  }, [loading]);
+  }, [loading, user?.email]);
 
   if (loading) return;
   return data.length ? <HistoryList data={data} /> : <HistoryEmpty />;
