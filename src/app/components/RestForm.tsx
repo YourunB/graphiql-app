@@ -1,6 +1,5 @@
 'use client';
 import s from './RestForm.module.css';
-
 import React, { useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
@@ -23,8 +22,13 @@ export default function RestForm() {
   const [showVariables, setShowVariables] = useState(false);
   const [showHeaders, setShowHeaders] = useState(false);
   const [queryValue, setQueryValue] = useState('');
-  const [variablesValue, setVariablesValue] = useState('');
-  const [headersValue, setHeadersValue] = useState('');
+  const [variablesValue, setVariablesValue] = useState(`{
+  "name": "Rick",
+  "status": "alive"
+}`);
+  const [headersValue, setHeadersValue] = useState(`{
+  "X-Custom-Header": "CustomValue"
+}`);
   const [resultValue, setResultValue] = useState('');
   const [user, loading] = useAuthState(auth);
   const [method, setMethod] = useState('GET');
@@ -114,19 +118,27 @@ export default function RestForm() {
   };
 
   const loadDataFromApi = async () => {
-    const data = await getDataRestApi(inputValue, queryValue, variablesValue, headersValue);
-    const result = JSON.stringify(data);
-    format(result, 'json', 'result');
+    try {
+      const variables = JSON.parse(variablesValue || '{}');
+      const headers = JSON.parse(headersValue || '{}');
+      const data = await getDataRestApi(inputValue, queryValue, variables, headers);
+      const result = JSON.stringify(data, null, 2);
+      setResultValue(result);
 
-    const dataToSave = {
-      input: inputValue,
-      query: queryValue,
-      variables: variablesValue,
-      headers: headersValue,
-      method: method,
-    };
+      const dataToSave = {
+        input: inputValue,
+        query: queryValue,
+        variables: JSON.stringify(variables),
+        headers: JSON.stringify(headers),
+        method: method,
+      };
 
-    if (user) saveDataFromRest(dataToSave, user?.email);
+      if (user) saveDataFromRest(dataToSave, user?.email);
+    } catch {
+      setResultValue(
+        'Error parsing variables or fetching data. Please ensure variables and headers are in valid JSON format.'
+      );
+    }
   };
 
   return (
