@@ -20,24 +20,33 @@ export const getDataGraphApi = (url: string, query: string, variables = {}, head
     });
 };
 
-export const getDataRestApi = (url: string, query = {}, variables = {}, headers = {}) => {
-  const queryString = new URLSearchParams({ ...query, ...variables }).toString();
+interface RequestOptions extends RequestInit {
+  headers: {
+    [key: string]: string;
+  };
+  method: string;
+  body?: string;
+}
+
+export const getDataRestApi = (url: string, query = {}, variables = {}, headers = {}, method: string) => {
+  const queryString = new URLSearchParams({ ...variables }).toString();
   const fullUrl = `${url}?${queryString}`;
 
-  return fetch(fullUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-  })
+  const options: RequestOptions = {
+    method: method,
+    headers: headers,
+  };
+
+  if (method === 'POST') {
+     options.body = JSON.stringify(query);
+  }
+
+  console.log(options.body)
+
+  return fetch(fullUrl, options)
     .then((response) => {
-      if (!response.ok) {
-        return Promise.reject(new Error('Failed to fetch data'));
-      }
       return response.json();
     })
-    .then((data) => data)
     .catch((error) => {
       console.error('Error:', error);
       return Promise.reject(error);
