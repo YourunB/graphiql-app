@@ -38,10 +38,10 @@ export const getDataRestApi = (url: string, query = {}, variables = {}, headers 
   };
 
   if (method === 'POST') {
-     options.body = JSON.stringify(query);
+    options.body = JSON.stringify(query);
   }
 
-  console.log(options.body)
+  console.log(options.body);
 
   return fetch(fullUrl, options)
     .then((response) => {
