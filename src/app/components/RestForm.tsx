@@ -14,6 +14,7 @@ import { saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
 import useCheckAuth from '../utils/useCheckAuth';
+import { MethodSelector } from './MethodSelector';
 
 export default function RestForm() {
   const data = useDecodedUrl();
@@ -121,7 +122,7 @@ export default function RestForm() {
     try {
       const variables = JSON.parse(variablesValue || '{}');
       const headers = JSON.parse(headersValue || '{}');
-      const data = await getDataRestApi(inputValue, queryValue, variables, headers);
+      const data = await getDataRestApi(inputValue, queryValue, variables, headers, method);
       const result = JSON.stringify(data, null, 2);
       setResultValue(result);
 
@@ -158,6 +159,7 @@ export default function RestForm() {
 
       <div className={s.box}>
         <div className={s['form-left']}>
+          <MethodSelector method={method} setMethod={setMethod} />
           <CodeMirror
             value={queryValue}
             height="600px"
