@@ -1,8 +1,9 @@
-import { t } from 'i18next';
 import Link from 'next/link';
 import s from './HistoryEmpty.module.css';
+import { useTranslation } from 'react-i18next';
 
 export default function HistoryEmpty() {
+  const { t } = useTranslation();
   return (
     <>
       <h2>{t('history.empty')}</h2>

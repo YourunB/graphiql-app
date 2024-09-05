@@ -1,4 +1,4 @@
-import { vi, describe, afterEach, beforeEach, test } from 'vitest';
+import { vi, describe, afterEach, beforeEach, test, Mock } from 'vitest';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import useCheckAuth from '../../../../src/app/utils/useCheckAuth';
@@ -32,7 +32,7 @@ describe('checkAuth', () => {
       },
     }));
 
-    useRouter.mockReturnValue({ push: mockPush });
+    (useRouter as Mock).mockReturnValue({ push: mockPush });
   });
 
   afterEach(() => {
@@ -40,7 +40,7 @@ describe('checkAuth', () => {
   });
 
   test('should redirect to "/" if user is not authenticated', async () => {
-    useAuthState.mockReturnValue([null, false]);
+    (useAuthState as Mock).mockReturnValue([null, false]);
 
     await act(async () => {
       renderHook(() => useCheckAuth());
@@ -50,7 +50,7 @@ describe('checkAuth', () => {
   });
 
   test('should not redirect if user is authenticated', async () => {
-    useAuthState.mockReturnValue([{ uid: '123' }, false]);
+    (useAuthState as Mock).mockReturnValue([{ uid: '123' }, false]);
 
     await act(async () => {
       renderHook(() => useCheckAuth());
@@ -60,7 +60,7 @@ describe('checkAuth', () => {
   });
 
   test('should not redirect if loading', async () => {
-    useAuthState.mockReturnValue([null, true]);
+    (useAuthState as Mock).mockReturnValue([null, true]);
 
     await act(async () => {
       renderHook(() => useCheckAuth());

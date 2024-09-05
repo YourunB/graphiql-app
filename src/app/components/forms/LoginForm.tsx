@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from 'next/link';
-import { logInWithEmailAndPassword } from '../../../firebase';
+import { logInWithEmailAndPassword, auth } from '../../../firebase';
 import { LoginData } from '../../type';
 import { useTranslation } from 'react-i18next';
 import { useError } from '../../hooks/useError';
 import { createLoginSchema } from '../../../app/utils/validation';
-import { auth } from '../../../firebase';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';

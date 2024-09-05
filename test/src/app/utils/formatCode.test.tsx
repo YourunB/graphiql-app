@@ -1,4 +1,4 @@
-import { describe, test, vi, expect } from 'vitest';
+import { describe, test, vi, expect, Mock } from 'vitest';
 import { formatCode } from '../../../../src/app/utils/formatCode';
 import * as prettier from 'prettier/standalone';
 
@@ -29,7 +29,7 @@ describe('formatCode', () => {
   });
 
   test('should handle formatting errors gracefully', async () => {
-    prettier.format.mockImplementationOnce(() => {
+    (prettier.format as Mock).mockImplementationOnce(() => {
       throw new Error('Formatting error');
     });
     const input = 'const a = 1;';

@@ -1,6 +1,6 @@
 'use client';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/firebase';
+import { auth } from '../../../firebase';
 import { useEffect, useState } from 'react';
 import { getDataFromLS, RestData } from '../../utils/saveData';
 import HistoryEmpty from './HistoryEmpty';

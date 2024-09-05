@@ -1,4 +1,4 @@
-import History from '@/app/components/history/History';
+import History from '../../components/history/History';
 import s from './page.module.css';
 
 import { Metadata } from 'next';

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Header from '../../../../src/app/components/Header';
-import { expect, describe, test, vi, beforeEach } from 'vitest';
+import { expect, describe, test, vi, beforeEach, Mock } from 'vitest';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -29,7 +29,7 @@ describe('Header component', () => {
 
   vi.mock('react-i18next', () => ({
     useTranslation: () => ({
-      t: (key) => key,
+      t: (key: string) => key,
     }),
   }));
 
@@ -46,8 +46,8 @@ describe('Header component', () => {
   };
 
   beforeEach(() => {
-    useRouter.mockReturnValue(mockRouter);
-    useAuthState.mockReturnValue([null]);
+    (useRouter as Mock).mockReturnValue(mockRouter);
+    (useAuthState as Mock).mockReturnValue([null]);
   });
 
   test('renders home link', () => {
@@ -56,7 +56,7 @@ describe('Header component', () => {
   });
 
   test('renders user links when user is logged in', () => {
-    useAuthState.mockReturnValue([
+    (useAuthState as Mock).mockReturnValue([
       {
         email: 'test@example.com',
         getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
@@ -68,7 +68,7 @@ describe('Header component', () => {
   });
 
   test('renders user email when user is logged in', () => {
-    useAuthState.mockReturnValue([
+    (useAuthState as Mock).mockReturnValue([
       {
         email: 'test@example.com',
         getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
@@ -79,7 +79,7 @@ describe('Header component', () => {
   });
 
   test('calls onLogout when logout button is clicked', () => {
-    useAuthState.mockReturnValue([
+    (useAuthState as Mock).mockReturnValue([
       {
         email: 'test@example.com',
         getIdTokenResult: vi.fn().mockResolvedValue({ token: 'fake-token' }),
