@@ -97,14 +97,17 @@
   background-color: rgba(211, 206, 206);
   padding: 20px;
   overflow-y: auto;
-  z-index: 10000;
-  transition: transform 0.2s ease-in-out;
-
-  transform: translateX(-150%);
+  z-index: 1000;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .schema-sidebar_open {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .schema-sidebar_open h3,
