@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react';
 import { useDecodedUrl } from '../../../../src/app/utils/useDecodedUrl';
-import { decodeBase64 } from '../../../../src/app/modules/encodeBase64';
 import { describe, it, expect, vi, Mock } from 'vitest';
 import { usePathname, useSearchParams } from 'next/navigation'; //
 
@@ -15,8 +14,8 @@ vi.mock('../../../../../src/app/modules/encodeBase64', () => ({
 
 describe('useDecodedUrl', () => {
   it('should return null if pathname is not available', () => {
-    (usePathname as vi.Mock).mockReturnValue(null); // Mock usePathname
-    (useSearchParams as vi.Mock).mockReturnValue(new URLSearchParams()); // Mock useSearchParams
+    (usePathname as Mock).mockReturnValue(null); // Mock usePathname
+    (useSearchParams as Mock).mockReturnValue(new URLSearchParams()); // Mock useSearchParams
 
     const { result } = renderHook(() => useDecodedUrl());
     expect(result.current).toBeNull();
