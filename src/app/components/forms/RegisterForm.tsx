@@ -3,13 +3,12 @@ import s from './RegisterForm.module.css';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createRegisterSchema } from '@/app/utils/validation';
+import { createRegisterSchema } from '../../../app/utils/validation';
 import Link from 'next/link';
-import { registerWithEmailAndPassword } from '@/firebase';
-import { RegisterData } from '@/app/type';
+import { registerWithEmailAndPassword, auth } from '../../../firebase';
+import { RegisterData } from '../../type';
 import { useTranslation } from 'react-i18next';
-import { useError } from '@/app/hooks/useError';
-import { auth } from '@/firebase';
+import { useError } from '../../hooks/useError';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';

@@ -17,3 +17,5 @@ export type Author = {
   image: string;
   location: string;
 };
+
+export type Language = 'en' | 'ru';

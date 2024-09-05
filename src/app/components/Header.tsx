@@ -3,22 +3,18 @@ import styles from './Header.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import GraphQL from '../../../public/icons/logo-graphql.png';
-import flagUS from '../../../public/icons/flag-us.png';
-import flagRU from '../../../public/icons/flag-ru.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
+import LinksForUser from './header/LinksForUser';
+import { Language } from '../type';
+import { languageOptions } from '../modules/i18nInitializer';
+import LanguageMenu from './header/LanguageMenu';
 
-type Language = 'en' | 'ru';
-
-const languageOptions: { code: Language; label: string; flag: StaticImageData }[] = [
-  { code: 'en', label: 'English', flag: flagUS },
-  { code: 'ru', label: 'Русский', flag: flagRU },
-];
 
 const Header = () => {
   const { t } = useTranslation();
@@ -133,19 +129,7 @@ const Header = () => {
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
             {t('home')}
           </Link>
-          {user ? (
-            <>
-              <Link href="/graph" className={styles.homeLink}>
-                {t('Graph')}
-              </Link>
-              <Link href="/rest" className={styles.homeLink}>
-                {t('Rest')}
-              </Link>
-              <Link href="/history" className={styles.homeLink}>
-                {t('history.rout')}
-              </Link>
-            </>
-          ) : null}
+          {user && <LinksForUser/>}
         </div>
 
         {isMobile ? (
@@ -231,21 +215,7 @@ const Header = () => {
                 )}
                 {currentLangOption?.label}
               </button>
-              {languageMenuOpen && (
-                <div className={styles.languageMenu}>
-                  {languageOptions.map((option) => (
-                    <button
-                      key={option.code}
-                      onClick={() => handleLanguageChange(option.code)}
-                      className={`${styles.languageOption} ${option.code === currentLanguage ? styles.selectedLanguage : ''}`}
-                      disabled={option.code === currentLanguage}
-                    >
-                      <Image src={option.flag} alt={option.label} className={styles.flagIcon} width={20} height={20} />
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {languageMenuOpen && <LanguageMenu currentLanguage={currentLanguage} handleLanguageChange={handleLanguageChange} />}
             </div>
           </div>
         )}

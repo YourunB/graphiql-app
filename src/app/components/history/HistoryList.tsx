@@ -1,11 +1,12 @@
-import { t } from 'i18next';
 import Link from 'next/link';
 import s from './HistoryList.module.css';
 import { RestData } from '@/app/utils/saveData';
-import { encodeBase64 } from '@/app/modules/encodeBase64';
+import { encodeBase64 } from '../../modules/encodeBase64';
 import { Url } from 'next/dist/shared/lib/router/router';
+import { useTranslation } from 'react-i18next';
 
 export default function HistoryList({ data }: { data: RestData[] }) {
+  const { t } = useTranslation();
   const createURL = ({ headers, method, query, variables, input }: RestData): Url => {
     if (!input) return '';
     const url = new URL(`${location.origin}/${method}/${encodeBase64(input)}/${encodeBase64(query)}`);
