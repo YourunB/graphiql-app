@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useError } from '../../../../src/app/hooks/useError';
 
 vi.mock('react', async (importOriginal) => {
+  const actual = await importOriginal();
   return {
     ...actual,
     useContext: vi.fn(),
