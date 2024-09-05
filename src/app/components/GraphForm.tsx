@@ -6,7 +6,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useRef, useCallback, useState } from 'react';
 import { formatCode } from '../utils/formatCode';
-import { getDataGraphApi } from '../modules/api';
+import { getDataGraphApi, getGraphQLSchema } from '../modules/api';
 import { encodeBase64 } from '../modules/encodeBase64';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
@@ -15,8 +15,6 @@ import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
 import useCheckAuth from '../utils/useCheckAuth';
 import { GraphQLNamedType, GraphQLObjectType } from 'graphql/type';
-import { getIntrospectionQuery } from 'graphql/utilities';
-import { buildClientSchema } from 'graphql';
 import { useTranslation } from 'react-i18next';
 import { useError } from '@/app/hooks/useError';
 
@@ -168,29 +166,15 @@ export default function GraphForm() {
     }
   };
 
-  const fetchSchema = async () => {
-    try {
-      const introspectionQuery = getIntrospectionQuery();
-      const response = await fetch(inputValue, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...JSON.parse(headersValue || '{}'),
-        },
-        body: JSON.stringify({
-          query: introspectionQuery,
-        }),
+  const fetchSchema = () => {
+    getGraphQLSchema(inputValue, JSON.parse(headersValue || '{}'))
+      .then((types) => {
+        setSchema(types);
+        setShowSchema(true);
+      })
+      .catch(() => {
+        showError(t('errors.sdl'));
       });
-
-      const { data } = await response.json();
-
-      const typeMap = buildClientSchema(data).getTypeMap();
-      const types = Object.values(typeMap).filter((type) => !type.name.startsWith('__'));
-      setSchema(types);
-      setShowSchema(true);
-    } catch {
-      showError(t('errors.sdl'));
-    }
   };
 
   const toggleShowSchema = () => setShowSchema(!showSchema);
