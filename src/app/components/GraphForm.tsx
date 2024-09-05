@@ -165,9 +165,6 @@ export default function GraphForm() {
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>
           &#182;
         </button>
-        <button className={s['top__btn']} title="Submit Endpoint">
-          &#8226;
-        </button>
         <button className={s['top__btn']} title="Execute Query" onClick={() => loadDataFromApi()}>
           &#10003;
         </button>
