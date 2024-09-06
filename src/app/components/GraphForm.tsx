@@ -6,7 +6,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useRef, useCallback, useState } from 'react';
 import { formatCode } from '../utils/formatCode';
-import { getDataGraphApi } from '../modules/api';
+import { getDataGraphApi, getGraphQLSchema } from '../modules/api';
 import { encodeBase64 } from '../modules/encodeBase64';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
@@ -14,6 +14,9 @@ import { RestData, saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
 import useCheckAuth from '../utils/useCheckAuth';
+import { GraphQLNamedType, GraphQLObjectType } from 'graphql/type';
+import { useTranslation } from 'react-i18next';
+import { useError } from '@/app/hooks/useError';
 
 export default function GraphForm() {
   const pathname = usePathname();
@@ -51,6 +54,11 @@ export default function GraphForm() {
   "X-Custom-Header": "CustomValue"
 }`);
   const [resultValue, setResultValue] = useState('');
+  const [schema, setSchema] = useState<GraphQLNamedType[]>([]);
+  const [showSchema, setShowSchema] = useState(false);
+  const [selectedType, setSelectedType] = useState<GraphQLObjectType | null>(null);
+  const { t } = useTranslation();
+  const { showError } = useError();
 
   useEffect(() => {
     if (loading) return;
@@ -158,6 +166,19 @@ export default function GraphForm() {
     }
   };
 
+  const fetchSchema = () => {
+    getGraphQLSchema(inputValue, JSON.parse(headersValue || '{}'))
+      .then((types) => {
+        setSchema(types);
+        setShowSchema(true);
+      })
+      .catch(() => {
+        showError(t('errors.sdl'));
+      });
+  };
+
+  const toggleShowSchema = () => setShowSchema(!showSchema);
+
   return (
     <div className={s['graph-form']}>
       <div className={s.top}>
@@ -165,12 +186,57 @@ export default function GraphForm() {
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>
           &#182;
         </button>
-        <button className={s['top__btn']} title="Submit Endpoint">
-          &#8226;
+        <button className={s['top__btn']} title="Documentation Explorer" onClick={fetchSchema}>
+          &#10066;
         </button>
         <button className={s['top__btn']} title="Execute Query" onClick={() => loadDataFromApi()}>
           &#10003;
         </button>
+      </div>
+
+      <div className={`${s['schema-sidebar']} ${showSchema ? s['schema-sidebar_open'] : ''}`}>
+        {!selectedType ? (
+          <>
+            <button className={s['close-schema-btn']} onClick={toggleShowSchema}>
+              ×
+            </button>
+            <h3>{t('documentation.title')}</h3>
+            <h5>{t('documentation.allSchemaTypes')}</h5>
+            <div className={s['schema-types']}>
+              {schema.map((type: GraphQLNamedType) => (
+                <button
+                  key={type.name}
+                  className={s['type-btn']}
+                  onClick={() => setSelectedType(type as GraphQLObjectType)}
+                >
+                  {type.name}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={s['details-panel']}>
+            <button className={s['back-btn']} onClick={() => setSelectedType(null)}>
+              &#8592;
+            </button>
+            <h3>{selectedType.name}</h3>
+            <p>{selectedType.description}</p>
+
+            {selectedType.getFields && Object.keys(selectedType.getFields()).length > 0 && (
+              <>
+                <h4>{t('documentation.fields')}:</h4>
+                <ul>
+                  {Object.values(selectedType.getFields()).map((field) => (
+                    <li key={field.name}>
+                      <strong>{field.name}</strong>: {field.type.toString()}
+                      <p>{field.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       <div className={s.box}>

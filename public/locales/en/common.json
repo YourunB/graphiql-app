@@ -59,7 +59,8 @@
     "invalid": "Invalid email or password. Please check your credentials and try again.",
     "userExist": "A user with this email already exists. Please use a different email or try to log in.",
     "network": "Network error. Please check your internet connection and try again.",
-    "unknown": "An unknown error occurred. Please try again later."
+    "unknown": "An unknown error occurred. Please try again later.",
+    "sdl": "Failed to fetch SDL schema. Please try again later."
   },
   "validation": {
     "invalidEmail": "Invalid email address",
@@ -75,5 +76,10 @@
     "rout": "History",
     "empty": "You haven't executed any requests",
     "full": "History Requests"
+  },
+  "documentation": {
+    "title": "Documentation",
+    "fields": "Fields",
+    "allSchemaTypes": "All schema types"
   }
 }
