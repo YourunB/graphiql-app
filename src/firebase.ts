@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, initializeAuth, browserSessionPersistence } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { LoginData, RegisterData } from './app/type';
 
 const firebaseConfig = {
@@ -26,7 +26,7 @@ const logInWithEmailAndPassword = async ({ email, password }: LoginData) => {
 const registerWithEmailAndPassword = async ({ name, email, password }: RegisterData) => {
   const res = await createUserWithEmailAndPassword(auth, email, password);
   const user = res.user;
-  await addDoc(collection(db, 'users'), {
+  await setDoc(doc(db, 'users'), {
     uid: user.uid,
     name,
     authProvider: 'local',
