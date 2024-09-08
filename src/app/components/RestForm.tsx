@@ -13,7 +13,6 @@ import { auth } from '@/firebase';
 import { saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
-import useCheckAuth from '../utils/useCheckAuth';
 import { MethodSelector } from './MethodSelector';
 
 export default function RestForm() {
@@ -97,8 +96,6 @@ export default function RestForm() {
     setShowHeaders(!showHeaders);
     if (showVariables) setShowVariables(!showVariables);
   };
-
-  useCheckAuth();
 
   const format = async (code: string, type: string, area: string) => {
     if (code && type) {
