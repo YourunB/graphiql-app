@@ -3,7 +3,7 @@ import s from './page.module.css';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import homeIcon from '../../../../public/icons/home.svg'
+import homeIcon from '../../../../public/icons/home.svg';
 
 export const metadata: Metadata = {
   title: '404',
@@ -16,7 +16,7 @@ export default function PageNotFound() {
       <div className={s['error-box']}>
         <h2 className={s['error-box__title']}>404</h2>
         <Link className={s['error-box__link']} href="/">
-          <Image src={homeIcon} alt='Home' width={24} height={24}/>
+          <Image src={homeIcon} alt="Home" width={24} height={24} />
         </Link>
       </div>
     </main>

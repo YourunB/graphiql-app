@@ -14,31 +14,42 @@ const Client = () => {
   const parts = pathname.split('/');
 
   useEffect(() => {
-    if (parts.length <= 1 || (!['rest', 'get', 'post', 'graph'].includes(parts[1].toLowerCase()) && !['rest', 'get', 'post', 'graph'].includes(parts[2].toLowerCase()))) {
+    if (
+      parts.length <= 1 ||
+      (!['rest', 'get', 'post', 'graph'].includes(parts[1].toLowerCase()) &&
+        !['rest', 'get', 'post', 'graph'].includes(parts[2].toLowerCase()))
+    ) {
       router.push('/404');
     }
   }, [parts, router]);
 
   let codeForm = null;
   if (parts.length > 1) {
-    if (parts[1].toLowerCase() === 'rest' || parts[1].toLowerCase() === 'get' || parts[1].toLowerCase() === 'post' || parts[2].toLowerCase() === 'rest' || parts[2].toLowerCase() === 'get' || parts[2].toLowerCase() === 'post') {
-      codeForm = <>
-        <h2 className={s['title']}>REST</h2>
-        <RestForm />
-      </>
+    if (
+      parts[1].toLowerCase() === 'rest' ||
+      parts[1].toLowerCase() === 'get' ||
+      parts[1].toLowerCase() === 'post' ||
+      parts[2].toLowerCase() === 'rest' ||
+      parts[2].toLowerCase() === 'get' ||
+      parts[2].toLowerCase() === 'post'
+    ) {
+      codeForm = (
+        <>
+          <h2 className={s['title']}>REST</h2>
+          <RestForm />
+        </>
+      );
     } else if (parts[1].toLowerCase() === 'graph' || parts[2].toLowerCase() === 'graph') {
-      codeForm = <>
-        <h2 className={s['title']}>GraphQL</h2>
-        <GraphForm />
-      </>
-    } 
+      codeForm = (
+        <>
+          <h2 className={s['title']}>GraphQL</h2>
+          <GraphForm />
+        </>
+      );
+    }
   }
 
-  return (
-    <div data-testid="client">
-      {codeForm}
-    </div>
-  );
+  return <div data-testid="client">{codeForm}</div>;
 };
 
 export default Client;

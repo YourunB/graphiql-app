@@ -80,7 +80,7 @@ export default function LoginForm() {
               className={s['login__input']}
               placeholder={t('fields.password.placeholder')}
               id="password"
-              autoComplete='off'
+              autoComplete="off"
             />
           </div>
           {errors.password && <div className={s.error}>{errors.password.message}</div>}

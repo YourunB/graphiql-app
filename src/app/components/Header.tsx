@@ -15,7 +15,6 @@ import { Language } from '../type';
 import { languageOptions } from '../modules/i18nInitializer';
 import LanguageMenu from './header/LanguageMenu';
 
-
 const Header = () => {
   const { t } = useTranslation();
 
@@ -129,7 +128,7 @@ const Header = () => {
             <Image src={GraphQL} alt="GraphQL logo" className={styles.logo} width={20} height={20} />
             {t('home')}
           </Link>
-          {user && <LinksForUser/>}
+          {user && <LinksForUser />}
         </div>
 
         {isMobile ? (
@@ -215,7 +214,9 @@ const Header = () => {
                 )}
                 {currentLangOption?.label}
               </button>
-              {languageMenuOpen && <LanguageMenu currentLanguage={currentLanguage} handleLanguageChange={handleLanguageChange} />}
+              {languageMenuOpen && (
+                <LanguageMenu currentLanguage={currentLanguage} handleLanguageChange={handleLanguageChange} />
+              )}
             </div>
           </div>
         )}
