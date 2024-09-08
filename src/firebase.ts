@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, initializeAuth, browserSessionPersistence } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { LoginData, RegisterData } from './app/type';
 
@@ -14,7 +14,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = initializeAuth(app, {
+  persistence: browserSessionPersistence,
+});
 const db = getFirestore(app);
 
 const logInWithEmailAndPassword = async ({ email, password }: LoginData) => {
