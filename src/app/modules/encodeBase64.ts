@@ -3,5 +3,10 @@ export const encodeBase64 = (str: string) => {
 };
 
 export const decodeBase64 = (str: string) => {
-  return decodeURIComponent(escape(atob(str)));
+  try {
+    return decodeURIComponent(escape(atob(str)));
+  } catch (e) {
+    console.error('Failed to decode base64 string');
+    return null;
+  }
 };
