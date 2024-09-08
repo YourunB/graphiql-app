@@ -5,7 +5,7 @@ export const encodeBase64 = (str: string) => {
 export const decodeBase64 = (str: string) => {
   try {
     return decodeURIComponent(escape(atob(str)));
-  } catch (e) {
+  } catch {
     console.error('Failed to decode base64 string');
     return null;
   }

@@ -1,11 +1,11 @@
 import { User } from 'firebase/auth';
 
 export type RestData = {
-  input?: string;
-  query: string;
-  variables: string;
-  headers: string;
-  method: string;
+  method: string,
+  input: string,
+  query: string,
+  headers: string | null,
+  variables: string | null,
 };
 
 export const saveDataFromRest = (dataToSave: RestData, user: User['email']) => {
