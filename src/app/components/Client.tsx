@@ -11,7 +11,6 @@ const Client = () => {
   const parts = pathname.split('/');
 
   let codeForm;
-  console.log(parts)
   if (parts.length > 1 && (parts[1].toLowerCase() === 'rest' || parts[1].toLowerCase() === 'get' || parts[1].toLowerCase() === 'post' || parts[2].toLowerCase() === 'rest' || parts[2].toLowerCase() === 'get' || parts[2].toLowerCase() === 'post')) {
     codeForm = <>
       <h2 className={s['title']}>REST</h2>
@@ -25,9 +24,9 @@ const Client = () => {
   } else router.push('/404');
 
   return (
-    <>
+    <div data-testid="client">
       {codeForm}
-    </>
+    </div>
   );
 };
 
