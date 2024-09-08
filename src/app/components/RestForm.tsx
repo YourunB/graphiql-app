@@ -144,6 +144,9 @@ export default function RestForm() {
 
   return (
     <div className={s['rest-form']}>
+      <div className={s.selectors}>
+        <MethodSelector method={method} setMethod={setMethod} />
+      </div>
       <div className={s.top}>
         <input className={s['top__input']} value={inputValue} onChange={onChangeInput} placeholder="Base URL..." />
         <button className={s['top__btn']} title="Format Code" onClick={() => formatAllAreas()}>
@@ -156,7 +159,6 @@ export default function RestForm() {
 
       <div className={s.box}>
         <div className={s['form-left']}>
-          <MethodSelector method={method} setMethod={setMethod} />
           <CodeMirror
             value={queryValue}
             height="600px"
