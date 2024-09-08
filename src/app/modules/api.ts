@@ -40,8 +40,6 @@ export const getDataRestApi = (url: string, query = {}, variables = {}, headers 
     options.body = JSON.stringify(query);
   }
 
-  console.log(options.body);
-
   return fetch(fullUrl, options)
     .then((response) => {
       return response.json();
