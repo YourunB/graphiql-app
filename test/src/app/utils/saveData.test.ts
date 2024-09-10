@@ -9,9 +9,13 @@ vi.stubGlobal('localStorage', {
 
 describe('saveDataFromRest', () => {
   const mockUserEmail = 'testuser@example.com';
-  const mockRestData: RestData = { method: 'GET', input: 'input1', query: 'query1', variables: 'var1', headers: 
-    'headers1'
-   };
+  const mockRestData: RestData = {
+    method: 'GET',
+    input: 'input1',
+    query: 'query1',
+    variables: 'var1',
+    headers: 'headers1',
+  };
 
   it('should save data to localStorage when no previous data exists', () => {
     (localStorage.getItem as Mock).mockReturnValueOnce(null);

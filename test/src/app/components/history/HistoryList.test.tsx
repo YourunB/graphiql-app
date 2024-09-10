@@ -14,7 +14,9 @@ vi.mock('../../../../../src/app/modules/encodeBase64', () => ({
 
 vi.mock('HistoryList', () => ({
   ...vi.importActual('../../../../../src/app/components/history/HistoryList'),
-  createURL: vi.fn(() => 'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D'),
+  createURL: vi.fn(
+    () => 'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D'
+  ),
 }));
 
 describe('HistoryList', () => {
@@ -24,7 +26,7 @@ describe('HistoryList', () => {
       input: 'input1',
       query: 'query1',
       headers: 'headers1',
-      variables: 'variables1'
+      variables: 'variables1',
     },
   ];
 
@@ -37,6 +39,9 @@ describe('HistoryList', () => {
     expect(screen.getByText('GET input1')).toBeInTheDocument();
 
     const links = screen.getAllByRole('link');
-    expect(links[0]).toHaveAttribute('href', 'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D');
+    expect(links[0]).toHaveAttribute(
+      'href',
+      'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D'
+    );
   });
 });

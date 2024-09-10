@@ -39,7 +39,7 @@ export default function AboutTeam() {
         <div className={s.authorsGrid}>
           {authors.map((author) => (
             <div className={s.card} key={author.name}>
-              <Image src={author.image} alt={author.name} className={s.cardImage} width={300} height={300} />
+              <Image src={author.image} alt={author.name} className={s.cardImage} width={380} height={422} priority />
               <h3 className={s.cardName}>
                 {author.name}
                 <span>&mdash; {author.location}</span>

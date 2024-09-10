@@ -3,12 +3,6 @@ import { decodeBase64 } from '../modules/encodeBase64';
 import { useEffect, useState } from 'react';
 import { RestData } from './saveData';
 
-export interface DecodedData {
-  method: string;
-  url: string;
-  body?: string;
-}
-
 export function useDecodedUrl() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -30,8 +24,8 @@ export function useDecodedUrl() {
 
       setData({
         method,
-        input: decodedInput,
-        query: decodedQuery,
+        input: decodedInput || '',
+        query: decodedQuery || '',
         headers: headers ? decodeBase64(headers) : '',
         variables: variables ? decodeBase64(variables) : '',
       });

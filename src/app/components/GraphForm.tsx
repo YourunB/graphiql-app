@@ -13,7 +13,6 @@ import { auth } from '@/firebase';
 import { RestData, saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
-import useCheckAuth from '../utils/useCheckAuth';
 import { GraphQLNamedType, GraphQLObjectType } from 'graphql/type';
 import { useTranslation } from 'react-i18next';
 import { useError } from '@/app/hooks/useError';
@@ -121,8 +120,6 @@ export default function GraphForm() {
     setShowHeaders(!showHeaders);
     if (showVariables) setShowVariables(!showVariables);
   };
-
-  useCheckAuth();
 
   const format = async (code: string, type: string, area: string) => {
     if (code && type) {

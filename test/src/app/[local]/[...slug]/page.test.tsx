@@ -1,16 +1,15 @@
 import { render } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
-import RestPage from '../../../../../src/app/[locale]/[...slug]/page';
+import ClientPage from '../../../../../src/app/[locale]/[...slug]/page';
 
-vi.mock('../../../../../src/app/components/RestForm.tsx', () => ({
+vi.mock('../../../../../src/app/components/Client.tsx', () => ({
   __esModule: true,
-  default: () => <div>Mocked RestForm</div>,
+  default: () => <div>Mocked Client</div>,
 }));
 
-describe('RestPage', () => {
+describe('ClientPage', () => {
   test('renders correctly', () => {
-    const { getByText } = render(<RestPage />);
-    expect(getByText('Restfull')).toBeInTheDocument();
-    expect(getByText('Mocked RestForm')).toBeInTheDocument();
+    const { getByText } = render(<ClientPage />);
+    expect(getByText('Mocked Client')).toBeInTheDocument();
   });
 });

@@ -28,7 +28,7 @@ describe('useDecodedUrl', () => {
       variables: 'dmFyaWFibGVzMQ==',
     });
 
-    (usePathname as Mock).mockReturnValue(mockPathname); 
+    (usePathname as Mock).mockReturnValue(mockPathname);
     (useSearchParams as Mock).mockReturnValue(mockSearchParams);
 
     const { result } = renderHook(() => useDecodedUrl());

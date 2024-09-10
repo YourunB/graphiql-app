@@ -7,8 +7,8 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: Record<string, string> = {
-        'Graph': 'Graph',
-        'Rest': 'Rest',
+        Graph: 'Graph',
+        Rest: 'Rest',
         'history.rout': 'History',
       };
       return translations[key] || key;

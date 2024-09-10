@@ -6,6 +6,13 @@
   border-radius: 10px;
 }
 
+.selectors label,
+.selectors input {
+  cursor: pointer;
+  color: #da1cc1;
+  font-weight: 700;
+}
+
 .top {
   display: flex;
   gap: 5px;
