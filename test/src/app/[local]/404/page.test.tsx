@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { render, screen } from '@testing-library/react';
 import PageNotFound from '../../../../../src/app/[locale]/404/page';
 import { describe, test, expect } from 'vitest';
 
 vi.mock('next/image', () => ({
   __esModule: true,
-  default: (props) => <img {...props} />,
+  default: ({ alt, ...props }) => <img alt={alt} {...props} />,
 }));
 
 vi.mock('next/link', () => ({
