@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import PageNotFound from '../../../../../src/app/[locale]/404/page';
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 
 vi.mock('next/image', () => ({
   __esModule: true,
@@ -13,19 +13,19 @@ vi.mock('next/link', () => ({
 }));
 
 describe('PageNotFound', () => {
-  it('render title', () => {
+  test('render title', () => {
     render(<PageNotFound />);
     const titleElement = screen.getByText(/404/i);
     expect(titleElement).toBeInTheDocument();
   });
 
-  it('render home link', () => {
+  test('render home link', () => {
     render(<PageNotFound />);
     const linkElement = screen.getByRole('link', { name: /home/i });
     expect(linkElement).toHaveAttribute('href', '/');
   });
 
-  it('render icon', () => {
+  test('render icon', () => {
     render(<PageNotFound />);
     const imgElement = screen.getByAltText(/home/i);
     expect(imgElement).toBeInTheDocument();
