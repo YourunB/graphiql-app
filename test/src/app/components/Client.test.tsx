@@ -8,7 +8,6 @@ vi.mock('next/navigation', () => ({
   usePathname: vi.fn(),
 }));
 
-
 vi.mock('../../../../src/app/utils/useCheckAuth.ts');
 
 vi.mock('../../../../src/app/components/RestForm.tsx', () => ({
