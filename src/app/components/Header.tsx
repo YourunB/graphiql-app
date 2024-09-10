@@ -27,7 +27,6 @@ const Header = () => {
 
   const currentLanguage = i18n.language as Language;
 
-  // user credentials as token
   const [user] = useAuthState(auth);
 
   const handleLanguageChange = useCallback(
@@ -97,9 +96,8 @@ const Header = () => {
       }
     };
 
-    // check token immediately and then every 5 minutes
     checkTokenExpiration();
-    const intervalId = setInterval(checkTokenExpiration, 300000); // 5 minutes
+    const intervalId = setInterval(checkTokenExpiration, 300000);
 
     return () => clearInterval(intervalId);
   }, [user, router]);
