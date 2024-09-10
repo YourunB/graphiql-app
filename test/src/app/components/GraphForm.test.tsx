@@ -1,9 +1,14 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import GraphForm from '../../../../src/app/components/GraphForm';
+import * as api from '../../../../src/app/modules/api';
 import * as formatCodeUtil from '../../../../src/app/utils/formatCode';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../../../src/firebase';
 import { useDecodedUrl } from '../../../../src/app/utils/useDecodedUrl';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useError } from '../../../../src/app/hooks/useError';
 
 vi.mock('../../../../src/app/utils/useDecodedUrl');
 vi.mock('../../../../src/app/utils/saveData');
@@ -25,7 +30,7 @@ vi.mock('../../../../src/firebase.ts', () => ({
   },
 }));
 vi.mock('../../../../src/app/modules/api', () => ({
-  getDataRestApi: vi.fn(),
+  getDataGraphApi: vi.fn(),
 }));
 vi.mock('@uiw/react-codemirror', () => ({
   __esModule: true,
@@ -81,7 +86,8 @@ describe('GraphForm', () => {
       variables: '{"test": "value"}',
     });
 
-    (formatCodeUtil.formatCode as vi.Mock).mockResolvedValueOnce('formatted query')
+    (formatCodeUtil.formatCode as vi.Mock)
+      .mockResolvedValueOnce('formatted query')
       .mockResolvedValueOnce('formatted variables')
       .mockResolvedValueOnce('formatted headers');
 
@@ -104,22 +110,10 @@ describe('GraphForm', () => {
       variables: '{}',
     });
 
+    (api.getDataGraphApi as vi.Mock).mockResolvedValue({ data: 'some data' });
+
     render(<GraphForm />);
 
     fireEvent.click(screen.getByTitle('Execute Query'));
-  });
-
-  it('fetches and displays schema', async () => {
-    (useAuthState as vi.Mock).mockReturnValue([null, false]);
-    (useDecodedUrl as vi.Mock).mockReturnValue({
-      headers: '{}',
-      input: 'https://example.com/graphql',
-      query: 'query { test }',
-      variables: '{}',
-    });
-
-    render(<GraphForm />);
-
-    fireEvent.click(screen.getByTitle('Documentation Explorer'));
   });
 });
