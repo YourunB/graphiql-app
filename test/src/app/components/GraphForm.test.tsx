@@ -4,11 +4,7 @@ import GraphForm from '../../../../src/app/components/GraphForm';
 import * as api from '../../../../src/app/modules/api';
 import * as formatCodeUtil from '../../../../src/app/utils/formatCode';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../../../src/firebase';
 import { useDecodedUrl } from '../../../../src/app/utils/useDecodedUrl';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
-import { useError } from '../../../../src/app/hooks/useError';
 
 vi.mock('../../../../src/app/utils/useDecodedUrl');
 vi.mock('../../../../src/app/utils/saveData');
