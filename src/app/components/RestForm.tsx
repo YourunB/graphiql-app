@@ -9,7 +9,7 @@ import { formatCode } from '../utils/formatCode';
 import { getDataRestApi } from '../modules/api';
 import { encodeBase64 } from '../modules/encodeBase64';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/firebase';
+import { auth } from '../../firebase';
 import { saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
