@@ -9,13 +9,13 @@ import { formatCode } from '../utils/formatCode';
 import { getDataGraphApi, getGraphQLSchema } from '../modules/api';
 import { encodeBase64 } from '../modules/encodeBase64';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/firebase';
+import { auth } from '../../firebase';
 import { RestData, saveDataFromRest } from '../utils/saveData';
 import { useDecodedUrl } from '../utils/useDecodedUrl';
 import { usePathname } from 'next/navigation';
 import { GraphQLNamedType, GraphQLObjectType } from 'graphql/type';
 import { useTranslation } from 'react-i18next';
-import { useError } from '@/app/hooks/useError';
+import { useError } from '../../app/hooks/useError';
 
 export default function GraphForm() {
   const pathname = usePathname();
