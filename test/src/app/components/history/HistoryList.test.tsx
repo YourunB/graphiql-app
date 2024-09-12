@@ -12,13 +12,6 @@ vi.mock('../../../../../src/app/modules/encodeBase64', () => ({
   encodeBase64: vi.fn((str: string) => Buffer.from(str).toString('base64')),
 }));
 
-vi.mock('HistoryList', () => ({
-  ...vi.importActual('../../../../../src/app/components/history/HistoryList'),
-  createURL: vi.fn(
-    () => 'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D'
-  ),
-}));
-
 describe('HistoryList', () => {
   const mockData = [
     {
@@ -43,5 +36,50 @@ describe('HistoryList', () => {
       'href',
       'http://localhost:3000/GET/aW5wdXQx/cXVlcnkx?headers=aGVhZGVyczE%3D&variables=dmFyaWFibGVzMQ%3D%3D'
     );
+  });
+
+  it('renders correctly when data is empty', () => {
+    render(<HistoryList data={[]} />);
+
+    expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
+    expect(screen.getByText('history.full')).toBeInTheDocument();
+
+    expect(screen.queryByText('GET input1')).not.toBeInTheDocument(); // No items should be rendered
+  });
+
+  it('handles missing headers and variables', () => {
+    const dataWithoutOptionalParams = [
+      {
+        method: 'POST',
+        input: 'input2',
+        query: 'query2',
+        headers: '',
+        variables: '',
+      },
+    ];
+
+    render(<HistoryList data={dataWithoutOptionalParams} />);
+
+    expect(screen.getByText('POST input2')).toBeInTheDocument();
+
+    const links = screen.getAllByRole('link');
+    expect(links[0]).toHaveAttribute(
+      'href',
+      'http://localhost:3000/POST/aW5wdXQy/cXVlcnky'
+    );
+  });
+
+  it('creates URLs with optional parameters', () => {
+    const dataWithSomeParams = [
+      {
+        method: 'PUT',
+        input: 'input3',
+        query: '',
+        headers: 'headers3',
+        variables: '',
+      },
+    ];
+
+    render(<HistoryList data={dataWithSomeParams} />);
   });
 });
