@@ -112,4 +112,33 @@ describe('GraphForm', () => {
 
     fireEvent.click(screen.getByTitle('Execute Query'));
   });
+
+  it('toggles variables and headers visibility correctly', () => {
+    (useAuthState as Mock).mockReturnValue([null, false]);
+    (useDecodedUrl as Mock).mockReturnValue({
+      headers: '',
+      input: '',
+      query: '',
+      variables: '',
+    });
+
+    render(<GraphForm />);
+
+    fireEvent.click(screen.getByText('Variables'));
+    fireEvent.click(screen.getByText('Headers'));
+  });
+
+  it('creates URL correctly on input change', async () => {
+    (useAuthState as Mock).mockReturnValue([null, false]);
+    (useDecodedUrl as Mock).mockReturnValue({
+      headers: '',
+      input: 'http://localhost:3000/en/graph/',
+      query: '',
+      variables: '',
+    });
+    
+    render(<GraphForm />);
+
+    fireEvent.change(screen.getByPlaceholderText('Base URL...'), { target: { value: 'http://localhost:3000/en/graph/' } });
+  });
 });
