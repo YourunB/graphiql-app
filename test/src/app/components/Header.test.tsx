@@ -114,7 +114,7 @@ describe('Header component', () => {
 
     const menuButton = screen.getByText('☰');
     fireEvent.click(menuButton);
-    
+
     expect(screen.getByText('login')).toBeInTheDocument();
     expect(screen.getByText('register')).toBeInTheDocument();
 

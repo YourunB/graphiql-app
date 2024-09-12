@@ -63,10 +63,7 @@ describe('HistoryList', () => {
     expect(screen.getByText('POST input2')).toBeInTheDocument();
 
     const links = screen.getAllByRole('link');
-    expect(links[0]).toHaveAttribute(
-      'href',
-      'http://localhost:3000/POST/aW5wdXQy/cXVlcnky'
-    );
+    expect(links[0]).toHaveAttribute('href', 'http://localhost:3000/POST/aW5wdXQy/cXVlcnky');
   });
 
   it('creates URLs with optional parameters', () => {

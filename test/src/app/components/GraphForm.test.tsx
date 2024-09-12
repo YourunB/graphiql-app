@@ -136,9 +136,11 @@ describe('GraphForm', () => {
       query: '',
       variables: '',
     });
-    
+
     render(<GraphForm />);
 
-    fireEvent.change(screen.getByPlaceholderText('Base URL...'), { target: { value: 'http://localhost:3000/en/graph/' } });
+    fireEvent.change(screen.getByPlaceholderText('Base URL...'), {
+      target: { value: 'http://localhost:3000/en/graph/' },
+    });
   });
 });
