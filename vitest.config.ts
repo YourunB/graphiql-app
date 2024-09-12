@@ -10,7 +10,7 @@ export default defineConfig({
     globals: true,
     coverage: {
       include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['src/app/state/**'],
+      exclude: ['src/app/type.ts'],
     },
   },
 });
