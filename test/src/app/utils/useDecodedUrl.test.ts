@@ -41,4 +41,55 @@ describe('useDecodedUrl', () => {
       variables: 'variables1',
     });
   });
+
+  it('should handle cases with missing searchParams', () => {
+    const mockPathname = 'en/POST/aW5wdXQy';
+    const mockSearchParams = new URLSearchParams();
+
+    (usePathname as Mock).mockReturnValue(mockPathname);
+    (useSearchParams as Mock).mockReturnValue(mockSearchParams);
+
+    const { result } = renderHook(() => useDecodedUrl());
+
+    expect(result.current).toEqual({
+      method: 'POST',
+      input: 'input2',
+      query: '',
+      headers: '',
+      variables: '',
+    });
+  });
+
+  it('should handle incorrect pathname format gracefully', () => {
+    const mockPathname = 'en/GET';
+    const mockSearchParams = new URLSearchParams();
+
+    (usePathname as Mock).mockReturnValue(mockPathname);
+    (useSearchParams as Mock).mockReturnValue(mockSearchParams);
+
+    const { result } = renderHook(() => useDecodedUrl());
+
+    expect(result.current).toBeNull();
+  });
+
+  it('should handle cases where searchParams are present but empty', () => {
+    const mockPathname = 'en/PUT/aW5wdXQz/cXVlcnky';
+    const mockSearchParams = new URLSearchParams({
+      headers: '',
+      variables: '',
+    });
+
+    (usePathname as Mock).mockReturnValue(mockPathname);
+    (useSearchParams as Mock).mockReturnValue(mockSearchParams);
+
+    const { result } = renderHook(() => useDecodedUrl());
+
+    expect(result.current).toEqual({
+      method: 'PUT',
+      input: 'input3',
+      query: 'query2',
+      headers: '',
+      variables: '',
+    });
+  });
 });
