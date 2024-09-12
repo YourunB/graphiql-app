@@ -3,7 +3,6 @@ import Header from '../../../../src/app/components/Header';
 import { expect, describe, test, vi, beforeEach, Mock } from 'vitest';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { signOut } from 'firebase/auth';
 
 describe('Header component', () => {
   beforeEach(() => {
