@@ -92,6 +92,7 @@ describe('Header component', () => {
   test('changes background color on scroll', () => {
     render(<Header />);
     fireEvent.scroll(window, { target: { scrollY: 100 } });
+    expect(screen.getByTestId('header').style.background).toBe('rgb(235, 208, 246)');
   });
 
   test('restores background color when scrolled to top', () => {
@@ -103,5 +104,22 @@ describe('Header component', () => {
   test('render logo', () => {
     render(<Header />);
     expect(screen.getByAltText('GraphQL logo')).toBeInTheDocument();
+  });
+
+  test('opens and closes mobile menu', async () => {
+    Object.defineProperty(window, 'innerWidth', { value: 500, writable: true });
+
+    (useAuthState as Mock).mockReturnValue([null]);
+    render(<Header />);
+
+    const menuButton = screen.getByText('☰');
+    fireEvent.click(menuButton);
+
+    expect(screen.getByText('login')).toBeInTheDocument();
+    expect(screen.getByText('register')).toBeInTheDocument();
+
+    fireEvent.click(menuButton);
+    expect(screen.queryByText('login')).not.toBeInTheDocument();
+    expect(screen.queryByText('register')).not.toBeInTheDocument();
   });
 });

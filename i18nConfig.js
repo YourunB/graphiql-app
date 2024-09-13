@@ -2,7 +2,7 @@ const i18nConfig = {
   locales: ['en', 'ru'],
   defaultLocale: 'en',
   fallbackLng: 'en',
-  prefixDefault: 'force',
+  prefixDefault: true,
 };
 
-module.exports = i18nConfig;
+export default i18nConfig;

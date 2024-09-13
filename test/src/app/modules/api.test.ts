@@ -1,4 +1,4 @@
-import { getDataGraphApi, getDataRestApi, getGraphQLSchema } from "../../../../src/app/modules/api";
+import { getDataGraphApi, getDataRestApi, getGraphQLSchema } from '../../../../src/app/modules/api';
 
 describe('API functions', () => {
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe('API functions', () => {
     });
   });
 
-   describe('getDataRestApi', () => {
+  describe('getDataRestApi', () => {
     it('should successfully fetch data from the REST API with GET method', async () => {
       const mockResponse = { foo: 'bar' };
       global.fetch = vi.fn(() =>
@@ -78,12 +78,12 @@ describe('API functions', () => {
     });
   });
 
- describe('getGraphQLSchema', () => {
+  describe('getGraphQLSchema', () => {
     it('should handle fetch errors', async () => {
       const mockError = new Error('Network Error');
       global.fetch = vi.fn(() => Promise.reject(mockError));
 
       await expect(getGraphQLSchema('http://example.com/graphql')).rejects.toThrow('Network Error');
     });
-  }); 
+  });
 });

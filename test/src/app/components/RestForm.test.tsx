@@ -1,11 +1,11 @@
-import { Mock } from "vitest";
+import { Mock } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useDecodedUrl } from "../../../../src/app/utils/useDecodedUrl";
-import { useAuthState } from "react-firebase-hooks/auth";
-import RestForm from "../../../../src/app/components/RestForm";
-import { getDataRestApi } from "../../../../src/app/modules/api";
-import { saveDataFromRest } from "../../../../src/app/utils/saveData";
-import { formatCode } from "../../../../src/app/utils/formatCode";
+import { useDecodedUrl } from '../../../../src/app/utils/useDecodedUrl';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import RestForm from '../../../../src/app/components/RestForm';
+import { getDataRestApi } from '../../../../src/app/modules/api';
+import { saveDataFromRest } from '../../../../src/app/utils/saveData';
+import { formatCode } from '../../../../src/app/utils/formatCode';
 
 vi.mock('../../../../src/app/utils/useDecodedUrl');
 vi.mock('../../../../src/app/utils/saveData');
@@ -69,13 +69,10 @@ describe('RestForm Component', () => {
 
     const resultTextDiv = screen.getAllByText('Mocked CodeMirror');
     expect(resultTextDiv[0]).toBeInTheDocument();
-    expect(saveDataFromRest).toHaveBeenCalledWith(
-      expect.any(Object),
-      mockUser.email
-    );
+    expect(saveDataFromRest).toHaveBeenCalledWith(expect.any(Object), mockUser.email);
   });
 
- it('formats all code areas when Format Code button is clicked', async () => {
+  it('formats all code areas when Format Code button is clicked', async () => {
     (useDecodedUrl as Mock).mockReturnValue(null);
     (useAuthState as Mock).mockReturnValue([null, false]);
 
@@ -88,7 +85,7 @@ describe('RestForm Component', () => {
     });
   });
 
-   it('toggles the visibility of variables and headers areas', async () => {
+  it('toggles the visibility of variables and headers areas', async () => {
     (useDecodedUrl as Mock).mockReturnValue(null);
     (useAuthState as Mock).mockReturnValue([null, false]);
 
