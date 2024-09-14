@@ -74,8 +74,9 @@ export default function GraphForm() {
     const pathParts = pathname.split('/').filter(Boolean);
     const language = pathParts[0] || 'en';
     const url = new URL(
-      `${location.origin}/${language}/POST/${encodeBase64(value || inputValue)}/${encodeBase64(queryValue)}`
+      `${location.origin}/${language}/graph/${encodeBase64(value || inputValue)}/${encodeBase64(queryValue)}`
     );
+    console.log(url)
     const params = new URLSearchParams();
 
     if (headersValue) params.append('headers', encodeBase64(headersValue));
