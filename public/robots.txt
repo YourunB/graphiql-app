@@ -1,0 +1,3 @@
+# Disable indexing for all crawlers
+User-agent: *
+Disallow: /
