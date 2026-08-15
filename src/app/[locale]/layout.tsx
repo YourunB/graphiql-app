@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Metadata } from 'next';
 import '../globals.css';
 import GraphAnimation from '../components/GraphAnimation';
